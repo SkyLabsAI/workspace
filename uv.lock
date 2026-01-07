@@ -14,6 +14,7 @@ members = [
     "grpc-server",
     "inference",
     "jsonrpc-tp",
+    "llm-gateway",
     "observability",
     "perturbations",
     "preprocessing-tools",
@@ -996,6 +997,7 @@ source = { editable = "psi/backend/inference" }
 dependencies = [
     { name = "openai" },
     { name = "pydantic" },
+    { name = "python-dotenv" },
     { name = "pyyaml" },
 ]
 
@@ -1004,12 +1006,16 @@ dev = [
     { name = "mypy" },
     { name = "pytest" },
     { name = "pytest-cov" },
+    { name = "ruff" },
+    { name = "taskipy" },
+    { name = "types-pyyaml" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "openai", specifier = ">=1.0.0" },
     { name = "pydantic", specifier = ">=2.0.0" },
+    { name = "python-dotenv", specifier = ">=1.0.0" },
     { name = "pyyaml", specifier = ">=6.0.0" },
 ]
 
@@ -1018,6 +1024,9 @@ dev = [
     { name = "mypy", specifier = ">=1.18.2,<2" },
     { name = "pytest", specifier = ">=8.4.2,<9" },
     { name = "pytest-cov", specifier = ">=7.0.0,<8" },
+    { name = "ruff", specifier = ">=0.1.0" },
+    { name = "taskipy", specifier = ">=1.14.1" },
+    { name = "types-pyyaml", specifier = ">=6.0.0" },
 ]
 
 [[package]]
@@ -1331,6 +1340,47 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/77/e8/4598413aece46ca38d9260ef6c51534bd5f34b5c21474fcf210ce3a02123/librt-0.7.3-cp313-cp313-win32.whl", hash = "sha256:44b3689b040df57f492e02cd4f0bacd1b42c5400e4b8048160c9d5e866de8abe", size = 47936, upload-time = "2025-12-06T19:04:02.054Z" },
     { url = "https://files.pythonhosted.org/packages/af/80/ac0e92d5ef8c6791b3e2c62373863827a279265e0935acdf807901353b0e/librt-0.7.3-cp313-cp313-win_amd64.whl", hash = "sha256:6b407c23f16ccc36614c136251d6b32bf30de7a57f8e782378f1107be008ddb0", size = 54965, upload-time = "2025-12-06T19:04:03.224Z" },
     { url = "https://files.pythonhosted.org/packages/f1/fd/042f823fcbff25c1449bb4203a29919891ca74141b68d3a5f6612c4ce283/librt-0.7.3-cp313-cp313-win_arm64.whl", hash = "sha256:abfc57cab3c53c4546aee31859ef06753bfc136c9d208129bad23e2eca39155a", size = 48350, upload-time = "2025-12-06T19:04:04.234Z" },
+]
+
+[[package]]
+name = "llm-gateway"
+version = "0.1.0"
+source = { editable = "psi/backend/psi_coder/backend/llm_gateway" }
+dependencies = [
+    { name = "fastapi" },
+    { name = "httpx" },
+    { name = "observability" },
+    { name = "prompts" },
+    { name = "python-dotenv" },
+    { name = "uvicorn", extra = ["standard"] },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "aiohttp" },
+    { name = "mypy" },
+    { name = "pytest" },
+    { name = "pytest-asyncio" },
+    { name = "pytest-cov" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "fastapi", specifier = ">=0.111.0,<0.117.0" },
+    { name = "httpx", specifier = ">=0.27.0,<0.29.0" },
+    { name = "observability", editable = "fmdeps/rocq-agent-toolkit/observability" },
+    { name = "prompts", editable = "psi/backend/prompts" },
+    { name = "python-dotenv", specifier = ">=1.0.0" },
+    { name = "uvicorn", extras = ["standard"], specifier = ">=0.29.0,<0.36.0" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "aiohttp", specifier = ">=3.9.0,<4" },
+    { name = "mypy", specifier = ">=1.18.2,<2" },
+    { name = "pytest", specifier = ">=8.4.2,<9" },
+    { name = "pytest-asyncio", specifier = ">=0.24.0,<0.25" },
+    { name = "pytest-cov", specifier = ">=7.0.0,<8" },
 ]
 
 [[package]]
