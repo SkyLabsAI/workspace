@@ -13,7 +13,7 @@ all: _CoqProject stage1
 CPP2V = _build/install/default/bin/cpp2v
 .PHONY: ide-prepare
 ide-prepare: _CoqProject
-	$(Q)$(DUNE_WRAPPER) build --display=short @fmdeps/vendored/rocq/install ${CPP2V}
+	$(Q)$(DUNE_WRAPPER) build --display=short @vendored/rocq/install ${CPP2V}
 
 .PHONY: FORCE
 FORCE:
