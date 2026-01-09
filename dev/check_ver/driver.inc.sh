@@ -24,8 +24,8 @@ available() {
   type $1 2> /dev/null > /dev/null
 }
 
-# Usage: appropriate_version MIN VER [MAX]
-# Description: indicates whether MIN ≤ VER < MAX, using version order.
+# Usage: appropriate_version MIN VER [FIRST_UNSUPPORTED]
+# Description: indicates whether MIN ≤ VER < FIRST_UNSUPPORTED, using version order.
 appropriate_version() {
   if [[ "$2" == "$1" ]]; then
     # Version equal to the (included) lower bound.
@@ -46,8 +46,8 @@ appropriate_version() {
 
 instructions() {
   echo -e "\033[0;31m$1"
-  if [[ -v MAX ]]; then
-    echo -e "Install a version VER such that: ${MIN} ≤ VER < ${MAX}."
+  if [[ -v FIRST_UNSUPPORTED ]]; then
+    echo -e "Install a version VER such that: ${MIN} ≤ VER < ${FIRST_UNSUPPORTED}."
   else
     echo -e "Install a version VER such that: ${MIN} ≤ VER."
   fi
@@ -63,8 +63,8 @@ if ! available "${PROG}"; then
 fi
 
 VER=$(print_ver)
-if [[ -v MAX ]]; then
-  if ! appropriate_version ${MIN} ${VER} ${MAX}; then
+if [[ -v FIRST_UNSUPPORTED ]]; then
+  if ! appropriate_version ${MIN} ${VER} ${FIRST_UNSUPPORTED}; then
     instructions "Your version of ${PROG} (${VER}) is not supported."
   fi
 else
