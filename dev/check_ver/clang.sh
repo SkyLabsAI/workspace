@@ -7,7 +7,7 @@ PROG="clang"
 URL="https://apt.llvm.org"
 MIN="18.0.0"
 MAX="22.0.0"
-RECOMMENDED="20.*.*"
+RECOMMENDED="19.*.*"
 
 print_ver() {
   VER="$(clang --version | grep "clang version" | sed -r 's/^.*clang version ([0-9.]+).*$/\1/')"
