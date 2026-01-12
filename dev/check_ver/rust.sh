@@ -6,7 +6,7 @@
 PROG="rustc"
 URL="https://rust-lang.org/tools/install/"
 MIN="1.85.0"
-MAX="1.93.0"
+FIRST_UNSUPPORTED="1.93.0"
 RECOMMENDED="1.90.*"
 
 print_ver() {
