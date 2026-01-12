@@ -10,7 +10,7 @@ Template
 PROG="prog" # Program name.
 URL="https://prog.html/install/" # Installation instructions.
 MIN="42.0.1" # Minimum supported version (included).
-MAX="50.0.0" # First version that is not supported (optional).
+FIRST_UNSUPPORTED="50.0.0" # First version that is not supported (optional).
 RECOMMENDED="..." # Recommended version (optional).
 
 # Function that prints the version.
