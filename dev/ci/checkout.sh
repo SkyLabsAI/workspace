@@ -29,7 +29,7 @@ if [[ -z "${DO_NOT_CLONE:-}" && "$(make loop LOOP_COMMAND=echo | wc -l)" != "1" 
   exit 1
 fi
 
-export LOOP_COMMAND="dev/ci/checkout_command.sh"
+export LOOP_COMMAND='dev/ci/checkout_command.sh'
 
 # Checkout the specified commit on the workspace repository.
 make loop-workspace
