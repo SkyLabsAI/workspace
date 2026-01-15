@@ -2,3 +2,5 @@ _build/
 _opam/
 _CoqProject
 .env
+docker/github-login
+docker/github-token
