@@ -9,6 +9,9 @@ REPO_DEFAULT = $$(word 3,$$(subst :, ,$$1))
 REPO_DIR = $$(word 1,$$(subst :, ,$$1))/$$(word 4,$$(subst :, ,$$1))
 REPO_MODE = $$(word 5,$$(subst :, ,$$1))
 REPO_VIS = $$(word 6,$$(subst :, ,$$1))
+ifneq (${GIT_REFERENCE_PREFIX},)
+REPO_CLONE_REFERENCE_IF_ABLE = --reference-if-able ${GIT_REFERENCE_PREFIX}/$$(word 2,$$(subst :, ,$$1)).git
+endif
 REPO_URL = ${GITHUB_URL}$$(word 2,$$(subst :, ,$$1)).git
 REPO_NAME = $$(word 2,$$(subst /, ,$$(word 2,$$(subst :, ,$$1))))
 ifneq ($1,sentinel)
@@ -27,6 +30,7 @@ ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 else
 	@echo "Cloning ${REPO_URL} in ${REPO_DIR}"
 	$(Q)$${CLONE_ENV_${REPO_NAME}} git clone ${CLONE_ARGS} \
+        ${REPO_CLONE_REFERENCE_IF_ABLE} \
 		--branch ${REPO_DEFAULT} ${REPO_URL} ${REPO_DIR}
 endif
 
@@ -41,6 +45,7 @@ ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 else
 	@echo "Cloning ${REPO_URL} in ${REPO_DIR} (lightweight, no checkout)"
 	$(Q)$${CLONE_ENV_${REPO_NAME}} git clone ${CLONE_ARGS} \
+        ${REPO_CLONE_REFERENCE_IF_ABLE} \
 		--no-checkout --filter=tree:0 --quiet ${REPO_URL} ${REPO_DIR}
 endif
 
@@ -182,6 +187,7 @@ unexport REPO_DEFAULT
 unexport REPO_DIR
 unexport REPO_MODE
 unexport REPO_VIS
+unexport REPO_CLONE_REFERENCE_IF_ABLE
 unexport REPO_URL
 unexport REPO_NAME
 
