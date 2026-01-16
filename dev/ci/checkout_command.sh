@@ -19,8 +19,10 @@ fi
 
 REPO_HASH=$(grep "^${REPO_DIR}: " ${COMMITS_FILE} | cut -d ' ' -f 2)
 
-# Inherit `make`s repo-specific cloning variables
-export $${CLONE_ENV_${REPO_NAME}}
+if [ -n "${REPO_CLONE_ENV}" ]; then
+    # Inherit `make`s repo-specific cloning variables
+    export ${REPO_CLONE_ENV}
+fi
 
 git -C "${REPO_DIR}" fetch --deepen 1 --quiet origin "${REPO_HASH}"
 git -C "${REPO_DIR}" -c advice.detachedHead=false checkout "${REPO_HASH}"
