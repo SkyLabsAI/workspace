@@ -2,3 +2,5 @@ _build/
 _opam/
 _CoqProject
 .env
+.DS_Store
+**/.DS_Store
