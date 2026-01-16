@@ -29,15 +29,15 @@ if [[ -z "${DO_NOT_CLONE:-}" && "$(make loop LOOP_COMMAND=echo | wc -l)" != "1" 
   exit 1
 fi
 
-export LOOP_COMMAND="dev/ci/checkout_command.sh"
+export LOOP_COMMAND='dev/ci/checkout_command.sh'
 
 # Checkout the specified commit on the workspace repository.
 make loop-workspace
 
 # Clone all the sub-repos (shallowly).
 if [[ -z "${DO_NOT_CLONE:-}" ]]; then
-    make clone -j CLONE_ARGS="--depth 1 --quiet"
+    make lightweight-clone -j -O CLONE_ARGS="--quiet"
 fi
 
 # Checkout the specified commit on the sub-repositories.
-make loop-subrepos -j
+make loop-subrepos -j -O

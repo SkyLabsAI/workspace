@@ -9,6 +9,9 @@ REPO_DEFAULT = $$(word 3,$$(subst :, ,$$1))
 REPO_DIR = $$(word 1,$$(subst :, ,$$1))/$$(word 4,$$(subst :, ,$$1))
 REPO_MODE = $$(word 5,$$(subst :, ,$$1))
 REPO_VIS = $$(word 6,$$(subst :, ,$$1))
+ifneq (${GIT_REFERENCE_PREFIX},)
+REPO_CLONE_REFERENCE_IF_ABLE = --reference-if-able ${GIT_REFERENCE_PREFIX}/$$(word 2,$$(subst :, ,$$1)).git
+endif
 REPO_URL = ${GITHUB_URL}$$(word 2,$$(subst :, ,$$1)).git
 REPO_NAME = $$(word 2,$$(subst /, ,$$(word 2,$$(subst :, ,$$1))))
 ifneq ($1,sentinel)
@@ -27,6 +30,7 @@ ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 else
 	@echo "Cloning ${REPO_URL} in ${REPO_DIR}"
 	$(Q)$${CLONE_ENV_${REPO_NAME}} git clone ${CLONE_ARGS} \
+        ${REPO_CLONE_REFERENCE_IF_ABLE} \
 		--branch ${REPO_DEFAULT} ${REPO_URL} ${REPO_DIR}
 endif
 
@@ -41,6 +45,7 @@ ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 else
 	@echo "Cloning ${REPO_URL} in ${REPO_DIR} (lightweight, no checkout)"
 	$(Q)$${CLONE_ENV_${REPO_NAME}} git clone ${CLONE_ARGS} \
+        ${REPO_CLONE_REFERENCE_IF_ABLE} \
 		--no-checkout --filter=tree:0 --quiet ${REPO_URL} ${REPO_DIR}
 endif
 
@@ -159,7 +164,7 @@ LOOP_TARGETS += loop-${REPO_NAME}
 .PHONY: loop-${REPO_NAME}
 loop-${REPO_NAME}: | loop-workspace
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
-	$(Q)$(LOOP_COMMAND) \
+	$(Q)REPO_CLONE_ENV="$${CLONE_ENV_${REPO_NAME}}" $(LOOP_COMMAND) \
 		$(REPO_PATH) $(REPO_URL) $(REPO_DEFAULT) $(REPO_DIR) $(REPO_MODE)
 endif
 
@@ -167,7 +172,7 @@ REVLOOP_TARGETS += revloop-${REPO_NAME}
 .PHONY: revloop-${REPO_NAME}
 revloop-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
-	$(Q)$(LOOP_COMMAND) \
+	$(Q)REPO_CLONE_ENV="$${CLONE_ENV_${REPO_NAME}}" $(LOOP_COMMAND) \
 		$(REPO_PATH) $(REPO_URL) $(REPO_DEFAULT) $(REPO_DIR) $(REPO_MODE)
 endif
 endif
@@ -182,6 +187,7 @@ unexport REPO_DEFAULT
 unexport REPO_DIR
 unexport REPO_MODE
 unexport REPO_VIS
+unexport REPO_CLONE_REFERENCE_IF_ABLE
 unexport REPO_URL
 unexport REPO_NAME
 
@@ -294,7 +300,7 @@ checkout-main: checkout-main-workspace ${CHECKOUT_MAIN_TARGETS}
 ifneq ($(LOOP_COMMAND),)
 .PHONY: loop-workspace
 loop-workspace:
-	$(Q)$(LOOP_COMMAND) $(WORKSPACE_PATH) ${WORKSPACE_ON_GITHUB} main ./ owned
+	$(Q)REPO_CLONE_ENV="" $(LOOP_COMMAND) $(WORKSPACE_PATH) ${WORKSPACE_ON_GITHUB} main ./ owned
 
 .PHONY: loop
 loop: loop-workspace ${LOOP_TARGETS}
@@ -304,5 +310,5 @@ loop-subrepos: ${REVLOOP_TARGETS}
 
 .PHONY: revloop
 revloop: loop-subrepos
-	$(Q)$(LOOP_COMMAND) $(WORKSPACE_PATH) ${WORKSPACE_ON_GITHUB} main ./ owned
+	$(Q)REPO_CLONE_ENV="" $(LOOP_COMMAND) $(WORKSPACE_PATH) ${WORKSPACE_ON_GITHUB} main ./ owned
 endif
