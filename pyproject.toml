@@ -14,6 +14,7 @@ members = [
     "fmdeps/rocq-agent-toolkit/observability",
     "fmdeps/rocq-agent-toolkit/dashboard/backend",
     "psi/backend/inference",
+    "psi/backend/inference_gateway",
     "psi/backend/prompts",
     "psi/backend/brick_agents",
     "psi/backend/preprocessing-tools",
