@@ -337,6 +337,7 @@ source = { editable = "psi/backend/brick_agents" }
 dependencies = [
     { name = "cognition-engine" },
     { name = "inference" },
+    { name = "inference-gateway" },
     { name = "jsonschema" },
     { name = "observability" },
     { name = "prompts" },
@@ -358,6 +359,7 @@ dev = [
 requires-dist = [
     { name = "cognition-engine", editable = "psi/backend/psi_verifier/cognition_engine" },
     { name = "inference", editable = "psi/backend/inference" },
+    { name = "inference-gateway", editable = "psi/backend/inference_gateway" },
     { name = "jsonschema", specifier = ">=4.25.1" },
     { name = "observability", editable = "fmdeps/rocq-agent-toolkit/observability" },
     { name = "prompts", editable = "psi/backend/prompts" },
