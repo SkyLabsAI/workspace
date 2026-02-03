@@ -13,6 +13,7 @@ members = [
     "fmdeps/rocq-agent-toolkit/rocq-doc-manager/python",
     "fmdeps/rocq-agent-toolkit/observability",
     "fmdeps/rocq-agent-toolkit/dashboard/backend",
+    "fmdeps/rocq-agent-toolkit/rocq-remote-agent",
     "psi/backend/inference",
     "psi/backend/inference_gateway",
     "psi/backend/prompts",
