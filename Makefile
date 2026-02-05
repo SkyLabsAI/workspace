@@ -24,6 +24,10 @@ _CoqProject: fmdeps/BRiCk/scripts/coq_project_gen/gen-_CoqProject-dune.sh FORCE
 .PHONY: stage1
 stage1: ide-prepare ast-prepare-bluerock
 
+.PHONY: pipeline-deps
+pipeline-deps: ide-prepare
+	$(Q) dune b @vendored/install @fmdeps/auto/install @fmdeps/BRiCk/install @fmdeps/rocq-agent-toolkit/install
+
 # Include the rules for development tools (deps checking, ...)
 include dev/rules.mk
 
