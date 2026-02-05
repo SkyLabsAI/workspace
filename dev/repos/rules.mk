@@ -159,6 +159,19 @@ else
 	@echo "No repository in ${REPO_DIR}, cannot checkout."
 endif
 
+REBASE_ON_MAIN_TARGETS += rebase-on-main-${REPO_NAME}
+${REPO_GROUP}_REBASE_ON_MAIN_TARGETS += rebase-on-main-${REPO_NAME}
+${REPO_VIS}_REBASE_ON_MAIN_TARGETS += rebase-on-main-${REPO_NAME}
+${REPO_MODE}_REBASE_ON_MAIN_TARGETS += rebase-on-main-${REPO_NAME}
+.PHONY: rebase-on-main-${REPO_NAME}
+rebase-on-main-${REPO_NAME}:
+ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
+	@echo "Rebasing on origin/${REPO_DEFAULT} in ${REPO_DIR}:"
+	$(Q)git -C ${REPO_DIR} rebase origin/${REPO_DEFAULT}
+else
+	@echo "No repository in ${REPO_DIR}, cannot rebase."
+endif
+
 ifneq ($(LOOP_COMMAND),)
 LOOP_TARGETS += loop-${REPO_NAME}
 .PHONY: loop-${REPO_NAME}
@@ -288,6 +301,14 @@ checkout-main-workspace:
 
 .PHONY: checkout-main
 checkout-main: checkout-main-workspace ${CHECKOUT_MAIN_TARGETS}
+
+.PHONY: rebase-on-main-workspace
+rebase-on-main-workspace:
+	@echo "Rebasing on origin/main in ./:"
+	$(Q)git rebase origin/main
+
+.PHONY: rebase-on-main
+rebase-on-main: rebase-on-main-workspace ${REBASE_ON_MAIN_TARGETS}
 
 # Support for looping over cloned repositories (excluding bhv sub-repos).
 # The LOOP_COMMAND variable must be set for these targets, and the passed
