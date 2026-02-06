@@ -10,7 +10,6 @@ members = [
     "fmdeps/rocq-agent-toolkit/provenance-toolkit",
     "fmdeps/rocq-agent-toolkit/rocq-pipeline",
     "fmdeps/rocq-agent-toolkit/rocq-doc-manager/python",
-    "fmdeps/rocq-agent-toolkit/psi-agent",
     "fmdeps/rocq-agent-toolkit/observability",
     "fmdeps/rocq-agent-toolkit/dashboard/backend",
     "psi/backend/inference",
