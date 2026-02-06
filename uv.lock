@@ -26,6 +26,7 @@ members = [
     "rocq-agent-toolkit-backend",
     "rocq-agent-tools-pydantic",
     "rocq-doc-manager",
+    "rocq-dune-util",
     "rocq-pipeline",
     "rocq-rl-env",
     "workspace",
@@ -3887,6 +3888,7 @@ dependencies = [
     { name = "hypothesis" },
     { name = "jsonrpc-tp" },
     { name = "pyyaml" },
+    { name = "rocq-dune-util" },
 ]
 
 [package.dev-dependencies]
@@ -3905,6 +3907,7 @@ requires-dist = [
     { name = "hypothesis", specifier = ">=6.148.2" },
     { name = "jsonrpc-tp", editable = "fmdeps/rocq-agent-toolkit/ocaml-jsonrpc-tp/python" },
     { name = "pyyaml", specifier = ">=6.0.3,<7" },
+    { name = "rocq-dune-util", editable = "fmdeps/rocq-agent-toolkit/rocq-dune-util" },
 ]
 
 [package.metadata.requires-dev]
@@ -3915,6 +3918,27 @@ dev = [
     { name = "ruff", specifier = ">=0.14.4" },
     { name = "taskipy", specifier = ">=1.14.1" },
     { name = "types-pyyaml", specifier = ">=6.0.12.20250915,<7" },
+]
+
+[[package]]
+name = "rocq-dune-util"
+version = "0.1.0"
+source = { editable = "fmdeps/rocq-agent-toolkit/rocq-dune-util" }
+
+[package.dev-dependencies]
+dev = [
+    { name = "mypy" },
+    { name = "ruff" },
+    { name = "taskipy" },
+]
+
+[package.metadata]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "mypy", specifier = ">=1.19.0" },
+    { name = "ruff", specifier = ">=0.14.8" },
+    { name = "taskipy", specifier = ">=1.14.1" },
 ]
 
 [[package]]
@@ -3989,6 +4013,7 @@ source = { virtual = "psi/backend/training/rocq_rl_env" }
 dependencies = [
     { name = "fastapi" },
     { name = "rocq-doc-manager" },
+    { name = "rocq-dune-util" },
     { name = "rocq-pipeline" },
     { name = "uvicorn", extra = ["standard"] },
 ]
@@ -4002,6 +4027,7 @@ dev = [
 requires-dist = [
     { name = "fastapi", specifier = ">=0.116.2" },
     { name = "rocq-doc-manager", editable = "fmdeps/rocq-agent-toolkit/rocq-doc-manager/python" },
+    { name = "rocq-dune-util", editable = "fmdeps/rocq-agent-toolkit/rocq-dune-util" },
     { name = "rocq-pipeline", editable = "fmdeps/rocq-agent-toolkit/rocq-pipeline" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.32.1" },
 ]
