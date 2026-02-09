@@ -27,3 +27,18 @@ endif
 
 .PHONY: ast-prepare-bluerock
 ast-prepare-bluerock: ast-prepare-bhv ast-prepare-NOVA
+
+.PHONY: clean-bluerock
+clean-bluerock: clean-bhv clean-NOVA
+
+.PHONY: clean-bhv
+clean-bhv:
+ifeq ($(wildcard ${BHV_DIR}),${BHV_DIR})
+	$(Q)$(MAKE) -C ${BHV_DIR} clean
+endif
+
+.PHONY: clean-NOVA
+clean-NOVA:
+ifeq ($(wildcard ${NOVA_DIR}),${NOVA_DIR})
+	$(Q)$(MAKE) -C ${NOVA_DIR} clean
+endif

@@ -38,6 +38,6 @@ include dev/repos/rules.mk
 include bluerock/build.mk
 
 .PHONY: clean
-clean:
+clean: clean-bluerock
 	$(Q)rm -rf $(GENERATED_FILES)
 	$(Q)dune clean
