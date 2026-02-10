@@ -6,7 +6,7 @@ authors: ["Jan-Oliver Kaiser <janno@skylabs-ai.com>"]
 homepage: "https://github.com/SkylabsAI/workspace"
 bug-reports: "https://github.com/SkylabsAI/workspace/issues"
 depends: [
-  "dune" {>= "3.17"}
+  "dune" {>= "3.21"}
   "odoc" {with-doc}
 ]
 build: [
@@ -24,3 +24,4 @@ build: [
   ]
 ]
 dev-repo: "git+https://github.com/SkylabsAI/workspace.git"
+x-maintenance-intent: ["(latest)"]
