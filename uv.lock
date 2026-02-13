@@ -3888,8 +3888,11 @@ dependencies = [
     { name = "dataclasses-json" },
     { name = "hypothesis" },
     { name = "jsonrpc-tp" },
+    { name = "pydantic" },
+    { name = "pytest-asyncio" },
     { name = "pyyaml" },
     { name = "rocq-dune-util" },
+    { name = "websockets" },
 ]
 
 [package.dev-dependencies]
@@ -3907,8 +3910,11 @@ requires-dist = [
     { name = "dataclasses-json", specifier = ">=0.6.7" },
     { name = "hypothesis", specifier = ">=6.148.2" },
     { name = "jsonrpc-tp", editable = "fmdeps/rocq-agent-toolkit/ocaml-jsonrpc-tp/python" },
+    { name = "pydantic", specifier = ">=2.12.5" },
+    { name = "pytest-asyncio", specifier = ">=0.24.0" },
     { name = "pyyaml", specifier = ">=6.0.3,<7" },
     { name = "rocq-dune-util", editable = "fmdeps/rocq-agent-toolkit/rocq-dune-util" },
+    { name = "websockets", specifier = ">=15.0.1" },
 ]
 
 [package.metadata.requires-dev]
