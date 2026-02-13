@@ -24,9 +24,11 @@ _CoqProject: fmdeps/BRiCk/scripts/coq_project_gen/gen-_CoqProject-dune.sh FORCE
 .PHONY: stage1
 stage1: ide-prepare ast-prepare-bluerock
 
+# Explicitly avoid installing fm-tools since doing so can break
+# dune. It is not obvious that we should install BRiCk and auto.
 .PHONY: pipeline-deps
 pipeline-deps:
-	$(Q)dune build @vendored/install @fmdeps/install
+	$(Q)dune build @vendored/install @fmdeps/rocq-agent-toolkit/install @fmdeps/BRiCk/install @fmdeps/auto/install
 
 # Include the rules for development tools (deps checking, ...)
 include dev/rules.mk
