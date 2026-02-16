@@ -1,6 +1,12 @@
 # Use "make ... Q=" to show more commands.
 Q=@
 
+# Enable output synchronization if available.
+# We prepend the option to allow override on the CLI with, e.g., "-Onone".
+ifneq ($(filter output-sync,${.FEATURES}),)
+MAKEFLAGS := --output-sync ${MAKEFLAGS}
+endif
+
 # Pick default bash on MacOS, even if it's installed with Homebrew.
 SHELL := $(shell which bash)
 
