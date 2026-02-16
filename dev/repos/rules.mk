@@ -310,6 +310,14 @@ rebase-on-main-workspace:
 .PHONY: rebase-on-main
 rebase-on-main: rebase-on-main-workspace ${REBASE_ON_MAIN_TARGETS}
 
+.PHONY: status
+status:
+	$(Q)$(MAKE) -s loop LOOP_COMMAND=./dev/repos/status.sh FETCH=true
+
+.PHONY: status-no-fetch
+status-no-fetch:
+	$(Q)$(MAKE) -s loop LOOP_COMMAND=./dev/repos/status.sh
+
 # Support for looping over cloned repositories (excluding bhv sub-repos).
 # The LOOP_COMMAND variable must be set for these targets, and the passed
 # command or script will be invoked with the following four arguments:
