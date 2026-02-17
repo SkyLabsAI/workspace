@@ -13,6 +13,7 @@ members = [
     "fmdeps/rocq-agent-toolkit/rocq-doc-manager/python",
     "fmdeps/rocq-agent-toolkit/observability",
     "fmdeps/rocq-agent-toolkit/dashboard/backend",
+    "fmdeps/rocq-agent-toolkit/rocq-remote-agent",
     "psi/backend/inference",
     "psi/backend/inference_gateway",
     "psi/backend/prompts",
@@ -30,7 +31,6 @@ members = [
     "psi/backend/psi_verifier/ci_example",
     "psi/backend/psi_coder/backend/llm_gateway",
     "psi/backend/training/rocq_rl_env",
-    "fmdeps/rocq-agent-toolkit/remote_agent_client",
     "psi/backend/remote_agent_server",
     "fmdeps/rocq-agent-toolkit/rocq-dune-util",
 ]
