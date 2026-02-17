@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # This script is meant to be used as a LOOP_COMMAND.
 #
