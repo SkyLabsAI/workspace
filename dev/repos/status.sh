@@ -57,8 +57,8 @@ else
   if ! git -C ${REPO_DIR} config "branch.${CUR_BRANCH}.remote" > /dev/null; then
     STATUS="${STATUS}, no_remote"
   else
-    BEHIND=$(git -C ${REPO_DIR} rev-list --count HEAD..origin/${CUR_BRANCH})
-    AHEAD=$(git -C ${REPO_DIR} rev-list --count origin/${CUR_BRANCH}..HEAD)
+    BEHIND=$(git -C ${REPO_DIR} rev-list --count HEAD..@{u})
+    AHEAD=$(git -C ${REPO_DIR} rev-list --count @{u}..HEAD)
     if [[ "${BEHIND}" -gt 0 ]]; then
       STATUS="${STATUS}, \e[0;33mbehind(${BEHIND})\e[0m"
     fi
