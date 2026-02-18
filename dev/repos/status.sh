@@ -22,13 +22,18 @@ if [[ "${FETCH:-false}" = "true" ]]; then
 fi
 
 CUR_BRANCH="$(git -C ${REPO_DIR} branch --show-current)"
+CUR_UPSTREAM="$(git -C ${REPO_DIR} rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo -n)"
 CLEAN="true"
 
 if [[ "${CUR_BRANCH}" = "" ]]; then
   STATUS="no_branch"
   CLEAN="false"
-elif [[ "${CUR_BRANCH}" = ${REPO_DEFAULT} ]]; then
-  STATUS="\e[0;32m${CUR_BRANCH}\e[0m"
+elif [[ "${CUR_BRANCH}" = ${REPO_DEFAULT} || "${CUR_UPSTREAM}" = "origin/${REPO_DEFAULT}" ]]; then
+  if [[ "${CUR_BRANCH}" = ${REPO_DEFAULT} ]]; then
+    STATUS="\e[0;32m${CUR_BRANCH}\e[0m"
+  else
+    STATUS="\e[0;32m${CUR_BRANCH}:${REPO_DEFAULT}\e[0m"
+  fi
   BEHIND=$(git -C ${REPO_DIR} rev-list --count HEAD..origin/${REPO_DEFAULT})
   AHEAD=$(git -C ${REPO_DIR} rev-list --count origin/${REPO_DEFAULT}..HEAD)
   if [[ "${BEHIND}" -gt 0 ]]; then
