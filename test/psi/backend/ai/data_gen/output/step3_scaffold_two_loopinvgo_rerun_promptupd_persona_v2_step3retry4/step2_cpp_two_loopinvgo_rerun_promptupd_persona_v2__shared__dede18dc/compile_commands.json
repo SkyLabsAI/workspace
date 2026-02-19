@@ -1,0 +1,20 @@
+[
+  {
+    "arguments": [
+      "/usr/local/bin/clang",
+      "-c",
+      "src/ArrayCopy_While/ArrayCopy_While__mode_novel__ex_01__block_0__c748fa5e.cpp"
+    ],
+    "directory": "/home/saad/dev/workspace/psi/backend/ai/data_gen/output/step3_scaffold_two_loopinvgo_rerun_promptupd_persona_v2_step3retry4/step2_cpp_two_loopinvgo_rerun_promptupd_persona_v2__shared__dede18dc",
+    "file": "/home/saad/dev/workspace/psi/backend/ai/data_gen/output/step3_scaffold_two_loopinvgo_rerun_promptupd_persona_v2_step3retry4/step2_cpp_two_loopinvgo_rerun_promptupd_persona_v2__shared__dede18dc/src/ArrayCopy_While/ArrayCopy_While__mode_novel__ex_01__block_0__c748fa5e.cpp"
+  },
+  {
+    "arguments": [
+      "/usr/local/bin/clang",
+      "-c",
+      "src/IntegerDivide/IntegerDivide__mode_novel__ex_01__block_0__29d09bb7.cpp"
+    ],
+    "directory": "/home/saad/dev/workspace/psi/backend/ai/data_gen/output/step3_scaffold_two_loopinvgo_rerun_promptupd_persona_v2_step3retry4/step2_cpp_two_loopinvgo_rerun_promptupd_persona_v2__shared__dede18dc",
+    "file": "/home/saad/dev/workspace/psi/backend/ai/data_gen/output/step3_scaffold_two_loopinvgo_rerun_promptupd_persona_v2_step3retry4/step2_cpp_two_loopinvgo_rerun_promptupd_persona_v2__shared__dede18dc/src/IntegerDivide/IntegerDivide__mode_novel__ex_01__block_0__29d09bb7.cpp"
+  }
+]
