@@ -29,6 +29,7 @@ members = [
     "psi/backend/psi_verifier/perturbations",
     "psi/backend/psi_verifier/utils",
     "psi/backend/psi_verifier/ci_example",
+    "psi/backend/remote_agent_server",
     "psi/backend/psi_coder/backend/llm_gateway",
     "psi/backend/training/rocq_rl_env",
     "fmdeps/rocq-agent-toolkit/rocq-dune-util",

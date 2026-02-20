@@ -23,6 +23,7 @@ members = [
     "provenance-toolkit",
     "psi-prover-workflow",
     "psi-utils",
+    "remote-agent-server",
     "rocq-agent-toolkit-backend",
     "rocq-agent-tools-pydantic",
     "rocq-doc-manager",
@@ -3719,6 +3720,45 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/4f/f9/8bd6b656592f925b6845fcbb4d57603a3ac2fb2373344ffa1ed70aa6820a/regex-2025.11.3-cp313-cp313t-win32.whl", hash = "sha256:9ddc42e68114e161e51e272f667d640f97e84a2b9ef14b7477c53aac20c2d59a", size = 268792, upload-time = "2025-11-03T21:32:44.13Z" },
     { url = "https://files.pythonhosted.org/packages/e5/87/0e7d603467775ff65cd2aeabf1b5b50cc1c3708556a8b849a2fa4dd1542b/regex-2025.11.3-cp313-cp313t-win_amd64.whl", hash = "sha256:7a7c7fdf755032ffdd72c77e3d8096bdcb0eb92e89e17571a196f03d88b11b3c", size = 280214, upload-time = "2025-11-03T21:32:45.853Z" },
     { url = "https://files.pythonhosted.org/packages/8d/d0/2afc6f8e94e2b64bfb738a7c2b6387ac1699f09f032d363ed9447fd2bb57/regex-2025.11.3-cp313-cp313t-win_arm64.whl", hash = "sha256:df9eb838c44f570283712e7cff14c16329a9f0fb19ca492d21d4b7528ee6821e", size = 271469, upload-time = "2025-11-03T21:32:48.026Z" },
+]
+
+[[package]]
+name = "remote-agent-server"
+version = "0.1.0"
+source = { editable = "psi/backend/remote_agent_server" }
+dependencies = [
+    { name = "brick-agents" },
+    { name = "fastapi" },
+    { name = "httpx" },
+    { name = "jsonrpc-tp" },
+    { name = "observability" },
+    { name = "rocq-doc-manager" },
+    { name = "uvicorn" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "mypy" },
+    { name = "ruff" },
+    { name = "taskipy" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "brick-agents", editable = "psi/backend/brick_agents" },
+    { name = "fastapi", specifier = ">=0.116.2" },
+    { name = "httpx", specifier = ">=0.28.1" },
+    { name = "jsonrpc-tp", editable = "fmdeps/rocq-agent-toolkit/ocaml-jsonrpc-tp/python" },
+    { name = "observability", editable = "fmdeps/rocq-agent-toolkit/observability" },
+    { name = "rocq-doc-manager", editable = "fmdeps/rocq-agent-toolkit/rocq-doc-manager/python" },
+    { name = "uvicorn", specifier = ">=0.35.0" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "mypy", specifier = ">=1.18.2,<2" },
+    { name = "ruff", specifier = ">=0.14.2" },
+    { name = "taskipy", specifier = ">=1.14.1" },
 ]
 
 [[package]]
