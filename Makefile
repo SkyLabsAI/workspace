@@ -32,7 +32,7 @@ stage1: ide-prepare ast-prepare-bluerock
 
 .PHONY: pipeline-deps
 pipeline-deps:
-	$(Q)dune build @vendored/install @fmdeps/install
+	$(Q)dune build @vendored/install @fmdeps/install @fmdeps/rocq-agent-toolkit/all
 
 # Include the rules for development tools (deps checking, ...)
 include dev/rules.mk
