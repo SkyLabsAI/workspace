@@ -7,7 +7,7 @@ dev-check-ver-$1: dev/check_ver/$1.sh
 	$$(Q)./$$<
 endef
 
-DEV_PROGS = clang opam rust uv
+DEV_PROGS = make clang opam rust uv
 $(foreach prog,$(DEV_PROGS),$(eval $(call check_ver_target,$(prog))))
 
 .PHONY: dev-check-ver
