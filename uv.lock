@@ -3899,9 +3899,11 @@ dev = [
     { name = "black" },
     { name = "cram" },
     { name = "flake8" },
+    { name = "hypothesis" },
     { name = "isort" },
     { name = "mypy" },
     { name = "pytest" },
+    { name = "pytest-asyncio" },
     { name = "ruff" },
     { name = "taskipy" },
 ]
@@ -3920,9 +3922,11 @@ dev = [
     { name = "black", specifier = ">=23.7.0,<24" },
     { name = "cram", specifier = ">=0.7" },
     { name = "flake8", specifier = ">=6.0.0,<7" },
+    { name = "hypothesis", specifier = ">=6.148.7" },
     { name = "isort", specifier = ">=5.12.0,<6" },
     { name = "mypy", specifier = ">=1.18.2,<2" },
     { name = "pytest", specifier = ">=8.4.2,<9" },
+    { name = "pytest-asyncio", specifier = ">=0.24.0" },
     { name = "ruff", specifier = ">=0.14.4" },
     { name = "taskipy", specifier = ">=1.14.1" },
 ]
