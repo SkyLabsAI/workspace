@@ -33,6 +33,7 @@ members = [
     "psi/backend/psi_coder/backend/llm_gateway",
     "psi/backend/training/rocq_rl_env",
     "fmdeps/rocq-agent-toolkit/rocq-dune-util",
+    "fmdeps/rocq-agent-toolkit/pyroof-search",
 ]
 
 [tool.ruff]
