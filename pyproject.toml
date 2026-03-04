@@ -6,6 +6,7 @@ requires-python = "~=3.13.0"
 
 [tool.uv.workspace]
 members = [
+    "fmdeps/rocq-agent-toolkit/rocq-agent-toolkit-utils",
     "fmdeps/rocq-agent-toolkit/ocaml-jsonrpc-tp/python",
     "fmdeps/rocq-agent-toolkit/provenance-toolkit",
     "fmdeps/rocq-agent-toolkit/rocq-pipeline",
