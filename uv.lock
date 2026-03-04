@@ -15,6 +15,7 @@ members = [
     "inference",
     "inference-gateway",
     "jsonrpc-tp",
+    "lemma-splitter",
     "llm-gateway",
     "observability",
     "perturbations",
@@ -1939,6 +1940,41 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ae/03/dd26e203a6cc4df053b3f2a3d40bd17cce7b495f5fab2c05ff8005303b68/langsmith-0.2.11.tar.gz", hash = "sha256:edf070349dbfc63dc4fc30e22533a11d77768e99ef269399b221c48fee25c737", size = 314724, upload-time = "2025-01-17T00:25:37.495Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f1/5b/b17c0c3dea1a76d75a386fde192221de8fccf3110f200a08aefd6666cfd7/langsmith-0.2.11-py3-none-any.whl", hash = "sha256:084cf66a7f093c25e6b30fb4005008ec5fa9843110e2f0b265ce133c6a0225e6", size = 326892, upload-time = "2025-01-17T00:25:33.456Z" },
+]
+
+[[package]]
+name = "lemma-splitter"
+version = "0.1.0"
+source = { editable = "psi/backend/lemma_splitter" }
+dependencies = [
+    { name = "rocq-doc-manager" },
+    { name = "rocq-pipeline" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "mypy" },
+    { name = "pytest" },
+    { name = "pytest-asyncio" },
+    { name = "ruff" },
+    { name = "taskipy" },
+    { name = "types-pyyaml" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "rocq-doc-manager", editable = "fmdeps/rocq-agent-toolkit/rocq-doc-manager/python" },
+    { name = "rocq-pipeline", editable = "fmdeps/rocq-agent-toolkit/rocq-pipeline" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "mypy", specifier = ">=1.18.2,<2" },
+    { name = "pytest", specifier = ">=8.4.2,<9" },
+    { name = "pytest-asyncio", specifier = ">=1.3.0" },
+    { name = "ruff", specifier = ">=0.14.2" },
+    { name = "taskipy", specifier = ">=1.14.1" },
+    { name = "types-pyyaml", specifier = ">=6.0.12.20250915,<7" },
 ]
 
 [[package]]
