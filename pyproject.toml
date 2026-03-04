@@ -34,6 +34,7 @@ members = [
     "psi/backend/training/rocq_rl_env",
     "fmdeps/rocq-agent-toolkit/rocq-dune-util",
     "fmdeps/rocq-agent-toolkit/pyroof-search",
+    "psi/backend/lemma_splitter",
 ]
 
 [tool.ruff]
