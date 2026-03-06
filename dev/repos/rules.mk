@@ -177,6 +177,23 @@ else
 	@echo "No repository in ${REPO_DIR}, cannot rebase."
 endif
 
+TAG_TARGETS += tag-${REPO_NAME}
+${REPO_GROUP}_TAG_TARGETS += tag-${REPO_NAME}
+${REPO_VIS}_TAG_TARGETS += tag-${REPO_NAME}
+${REPO_MODE}_TAG_TARGETS += tag-${REPO_NAME}
+.PHONY: tag-${REPO_NAME}
+tag-${REPO_NAME}:
+ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
+ifeq (${TAG_ARGS},)
+	@echo "Variable TAG_ARGS not set, not tagging ${REPO_DIR}."
+else
+	@echo "Tagging ${REPO_DIR} (${TAG_ARGS}):"
+	$(Q)git -C ${REPO_DIR} tag ${TAG_ARGS}
+endif
+else
+	@echo "No repository in ${REPO_DIR}, cannot tag."
+endif
+
 ifneq ($(LOOP_COMMAND),)
 LOOP_TARGETS += loop-${REPO_NAME}
 .PHONY: loop-${REPO_NAME}
@@ -314,6 +331,18 @@ rebase-on-main-workspace:
 
 .PHONY: rebase-on-main
 rebase-on-main: rebase-on-main-workspace ${REBASE_ON_MAIN_TARGETS}
+
+.PHONY: tag-workspace
+tag-workspace:
+ifeq (${TAG_ARGS},)
+	@echo "Variable TAG_ARGS not set, not tagging ./."
+else
+	@echo "Tagging ./ (${TAG_ARGS}):"
+	$(Q)git tag ${TAG_ARGS}
+endif
+
+.PHONY: tag
+tag: tag-workspace ${TAG_TARGETS}
 
 .PHONY: status
 status:
