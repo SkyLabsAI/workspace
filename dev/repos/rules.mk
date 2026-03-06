@@ -114,8 +114,13 @@ ${REPO_MODE}_PUSH_TARGETS += push-${REPO_NAME}
 .PHONY: push-${REPO_NAME}
 push-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
+ifeq (${PUSH_ARGS},)
 	@echo "Pushing in ${REPO_DIR}."
 	$(Q)git -C ${REPO_DIR} push
+else
+	@echo "Pushing in ${REPO_DIR} (${PUSH_ARGS})."
+	$(Q)git -C ${REPO_DIR} push ${PUSH_ARGS}
+endif
 else
 	@echo "No repository in ${REPO_DIR}, cannot push."
 endif
