@@ -7,4 +7,4 @@ fi
 
 export WORKTREE_TOPIC_PREFIX="release"
 
-./dev/worktrees/add.sh "$1"
+./dev/worktrees/check-remote.sh "$1" && ./dev/worktrees/add.sh "$1"
