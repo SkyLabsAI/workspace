@@ -54,3 +54,21 @@ information like with `make status`.
 ```
 ./dev/release/status.sh
 ```
+
+Release Tagging
+---------------
+
+Inside the release worktree, a release candidate tag can be created using the
+following command, where `N` is the release candidate number.
+```
+./dev/release/tag.sh NAME N
+```
+
+A release tag can be created by omitting the second argument.
+```
+./dev/release/tag.sh NAME
+```
+
+Note that in both cases, the commits being tagged are the commits currently
+checked-out. However, it is ensured that the status of the checkout is clean
+for the release.
