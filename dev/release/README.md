@@ -45,3 +45,12 @@ To remove a release worktree, use the following command.
 ```sh
 ./dev/release/remove-release-worktree.sh NAME
 ```
+
+Status of a Release Branch
+--------------------------
+
+Inside a release worktree, one can run the following command to get status
+information like with `make status`.
+```
+./dev/release/status.sh
+```
