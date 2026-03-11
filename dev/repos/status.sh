@@ -16,6 +16,10 @@ REPO_DEFAULT="$3"
 REPO_DIR="$4"
 REPO_MODE="$5"
 
+if [[ -n "${TARGET_BRANCH:-}" ]]; then
+  REPO_DEFAULT="${TARGET_BRANCH:-}"
+fi
+
 # Fetch only if requested.
 if [[ "${FETCH:-false}" = "true" ]]; then
   git -C ${REPO_DIR} fetch --quiet origin

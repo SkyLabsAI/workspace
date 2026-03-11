@@ -25,7 +25,7 @@ usage() {
 	cat <<-EOF
 		$0 [-n|-qt] [--] command topic [repo_relpath branch]
 
-		The command can be add, remove, force_remove or clean.
+		The command can be add, remove, force_remove, check_remote or clean.
 		Arguments '\${repo_relpath}' and '\${branch}' are required for
 		all commands but 'clean'.
 
@@ -44,6 +44,12 @@ usage() {
 
 		  Like remove, but force removing branch '$(prefix_branch_name \${topic})',
 		  even if unmerged. The branch can only be recovered via 'git reflog'.
+
+		check_remote
+
+		  Ensures that the expected branch name exists on the remote for all the
+			repositories. This can be used to check that a release branch exists in
+			all repositories for example.
 
 		clean
 		  Run \`make clean\` in the worktree
@@ -147,7 +153,7 @@ fi
 
 cmd="$1"; shift || demand_arg command
 case "$cmd" in
-	add|remove|force_remove|clean|post_create) ;;
+	add|remove|force_remove|check_remote|clean|post_create) ;;
 	*)
 		echo -e '>>>> Usage error: Providing a valid ''$command'' is mandatory!\n'; usage;;
 esac
@@ -211,6 +217,12 @@ one_worktree() {
 			fi
 			if [ -f "${new_worktree}/.gitmodules" ]; then
 				sayDo git -C ${new_worktree} submodule update --init --recursive
+			fi
+			;;
+		check_remote)
+			if ! rev_exists_remote ${main_worktree} ${main_remote} ${new_branch_name}; then
+				echo -e ">>>> Branch ${new_branch_name} does not exist on remote ${main_remote}!!!\n"
+				exit 1
 			fi
 			;;
 		remove|force_remove)
