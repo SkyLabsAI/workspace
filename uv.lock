@@ -1706,9 +1706,6 @@ wheels = [
 name = "jsonrpc-tp"
 version = "0.0.1"
 source = { editable = "fmdeps/rocq-agent-toolkit/ocaml-jsonrpc-tp/python" }
-dependencies = [
-    { name = "rocq-agent-toolkit-utils" },
-]
 
 [package.dev-dependencies]
 dev = [
@@ -1721,7 +1718,6 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "rocq-agent-toolkit-utils", editable = "fmdeps/rocq-agent-toolkit/rocq-agent-toolkit-utils" }]
 
 [package.metadata.requires-dev]
 dev = [
@@ -2419,7 +2415,6 @@ dependencies = [
     { name = "opentelemetry-semantic-conventions" },
     { name = "pydantic" },
     { name = "rich" },
-    { name = "rocq-agent-toolkit-utils" },
     { name = "structlog" },
 ]
 
@@ -2452,7 +2447,6 @@ requires-dist = [
     { name = "opentelemetry-semantic-conventions", specifier = ">=0.54b0" },
     { name = "pydantic", specifier = ">=2.9.0,<3" },
     { name = "rich", specifier = ">=13.8.0" },
-    { name = "rocq-agent-toolkit-utils", editable = "fmdeps/rocq-agent-toolkit/rocq-agent-toolkit-utils" },
     { name = "structlog", specifier = ">=24.4.0,<25" },
 ]
 
@@ -3052,7 +3046,6 @@ name = "provenance-toolkit"
 version = "0.1.0"
 source = { editable = "fmdeps/rocq-agent-toolkit/provenance-toolkit" }
 dependencies = [
-    { name = "rocq-agent-toolkit-utils" },
     { name = "semver" },
 ]
 
@@ -3070,10 +3063,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [
-    { name = "rocq-agent-toolkit-utils", editable = "fmdeps/rocq-agent-toolkit/rocq-agent-toolkit-utils" },
-    { name = "semver", specifier = ">=3.0.4" },
-]
+requires-dist = [{ name = "semver", specifier = ">=3.0.4" }]
 
 [package.metadata.requires-dev]
 dev = [
@@ -3571,7 +3561,6 @@ source = { editable = "fmdeps/rocq-agent-toolkit/pyroof-search" }
 dependencies = [
     { name = "observability" },
     { name = "provenance-toolkit" },
-    { name = "rocq-agent-toolkit-utils" },
     { name = "rocq-doc-manager" },
     { name = "rocq-pipeline" },
 ]
@@ -3593,7 +3582,6 @@ dev = [
 requires-dist = [
     { name = "observability", editable = "fmdeps/rocq-agent-toolkit/observability" },
     { name = "provenance-toolkit", editable = "fmdeps/rocq-agent-toolkit/provenance-toolkit" },
-    { name = "rocq-agent-toolkit-utils", editable = "fmdeps/rocq-agent-toolkit/rocq-agent-toolkit-utils" },
     { name = "rocq-doc-manager", editable = "fmdeps/rocq-agent-toolkit/rocq-doc-manager/python" },
     { name = "rocq-pipeline", editable = "fmdeps/rocq-agent-toolkit/rocq-pipeline" },
 ]
@@ -3908,7 +3896,6 @@ dependencies = [
     { name = "python-dotenv" },
     { name = "python-multipart" },
     { name = "pyyaml" },
-    { name = "rocq-agent-toolkit-utils" },
     { name = "sqlmodel" },
     { name = "types-pyyaml" },
     { name = "uvicorn", extra = ["standard"] },
@@ -3935,7 +3922,6 @@ requires-dist = [
     { name = "python-dotenv", specifier = ">=1.0.0" },
     { name = "python-multipart", specifier = ">=0.0.9" },
     { name = "pyyaml", specifier = ">=6.0.0" },
-    { name = "rocq-agent-toolkit-utils", editable = "fmdeps/rocq-agent-toolkit/rocq-agent-toolkit-utils" },
     { name = "sqlmodel", specifier = ">=0.0.22" },
     { name = "types-pyyaml", specifier = ">=6.0.12.20250915" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.29.0,<0.36.0" },
@@ -3997,7 +3983,6 @@ dependencies = [
     { name = "pydantic-ai" },
     { name = "pytest" },
     { name = "pytest-asyncio" },
-    { name = "rocq-agent-toolkit-utils" },
     { name = "rocq-doc-manager" },
     { name = "rocq-pipeline" },
 ]
@@ -4021,7 +4006,6 @@ requires-dist = [
     { name = "pydantic-ai", specifier = ">=1.5.0" },
     { name = "pytest", specifier = ">=8.4.2" },
     { name = "pytest-asyncio", specifier = ">=0.24.0" },
-    { name = "rocq-agent-toolkit-utils", editable = "fmdeps/rocq-agent-toolkit/rocq-agent-toolkit-utils" },
     { name = "rocq-doc-manager", editable = "fmdeps/rocq-agent-toolkit/rocq-doc-manager/python" },
     { name = "rocq-pipeline", editable = "fmdeps/rocq-agent-toolkit/rocq-pipeline" },
 ]
@@ -4049,7 +4033,6 @@ dependencies = [
     { name = "jsonrpc-tp" },
     { name = "pydantic" },
     { name = "pyyaml" },
-    { name = "rocq-agent-toolkit-utils" },
     { name = "rocq-dune-util" },
     { name = "websockets" },
 ]
@@ -4072,7 +4055,6 @@ requires-dist = [
     { name = "jsonrpc-tp", editable = "fmdeps/rocq-agent-toolkit/ocaml-jsonrpc-tp/python" },
     { name = "pydantic", specifier = ">=2.12.5" },
     { name = "pyyaml", specifier = ">=6.0.3,<7" },
-    { name = "rocq-agent-toolkit-utils", editable = "fmdeps/rocq-agent-toolkit/rocq-agent-toolkit-utils" },
     { name = "rocq-dune-util", editable = "fmdeps/rocq-agent-toolkit/rocq-dune-util" },
     { name = "websockets", specifier = ">=15.0.1" },
 ]
@@ -4126,7 +4108,6 @@ dependencies = [
     { name = "pyyaml" },
     { name = "rich" },
     { name = "rich-progress" },
-    { name = "rocq-agent-toolkit-utils" },
     { name = "rocq-doc-manager" },
     { name = "sexpdata" },
 ]
@@ -4159,7 +4140,6 @@ requires-dist = [
     { name = "pyyaml", specifier = ">=6.0.3,<7" },
     { name = "rich", specifier = ">=14.2.0" },
     { name = "rich-progress", specifier = ">=0.4.0" },
-    { name = "rocq-agent-toolkit-utils", editable = "fmdeps/rocq-agent-toolkit/rocq-agent-toolkit-utils" },
     { name = "rocq-doc-manager", editable = "fmdeps/rocq-agent-toolkit/rocq-doc-manager/python" },
     { name = "sexpdata", specifier = ">=1.0.2" },
 ]
@@ -4186,7 +4166,6 @@ source = { editable = "fmdeps/rocq-agent-toolkit/rocq-remote-agent" }
 dependencies = [
     { name = "httpx" },
     { name = "observability" },
-    { name = "rocq-agent-toolkit-utils" },
     { name = "rocq-doc-manager" },
     { name = "rocq-pipeline" },
     { name = "websockets" },
@@ -4205,7 +4184,6 @@ dev = [
 requires-dist = [
     { name = "httpx", specifier = ">=0.28.1" },
     { name = "observability", editable = "fmdeps/rocq-agent-toolkit/observability" },
-    { name = "rocq-agent-toolkit-utils", editable = "fmdeps/rocq-agent-toolkit/rocq-agent-toolkit-utils" },
     { name = "rocq-doc-manager", editable = "fmdeps/rocq-agent-toolkit/rocq-doc-manager/python" },
     { name = "rocq-pipeline", editable = "fmdeps/rocq-agent-toolkit/rocq-pipeline" },
     { name = "websockets", specifier = ">=14.3" },
