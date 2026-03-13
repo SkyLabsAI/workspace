@@ -1,0 +1,27 @@
+(env
+ (_
+  (flags :standard -warn-error +A -w +A-4-29-40..45-48-58..59-63..65-68-70)
+  (ocamlopt_flags :standard -O3 -unbox-closures)
+  (rocq
+   (rocqdep_flags :standard -w +all)
+   (flags (:standard -w
+    -notation-incompatible-prefix
+    -w
+    -notation-overridden
+    -w
+    -custom-entry-overridden
+    -w
+    -redundant-canonical-projection
+    -w
+    -ambiguous-paths
+    -w
+    +automatic-prop-lowering
+    -w
+    +deprecated-hint-without-locality
+    -w
+    +deprecated-instance-without-locality
+    -w
+    +unknown-option
+    -w
+    +future-coercion-class-field
+    )))))
