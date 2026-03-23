@@ -151,6 +151,16 @@ else
 	@echo "No repository in ${REPO_DIR}, cannot clean."
 endif
 
+LS_FILES_TARGETS += ls-files-${REPO_NAME}
+${REPO_GROUP}_LS_FILES_TARGETS += ls-files-${REPO_NAME}
+${REPO_VIS}_LS_FILES_TARGETS += ls-files-${REPO_NAME}
+${REPO_MODE}_LS_FILES_TARGETS += ls-files-${REPO_NAME}
+.PHONY: ls-files-${REPO_NAME}
+ls-files-${REPO_NAME}:
+ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
+	$(Q)git -C ${REPO_DIR} ls-files ${LS_FILES_ARGS} | sed 's|^|${REPO_DIR}|'
+endif
+
 CHECKOUT_MAIN_TARGETS += checkout-main-${REPO_NAME}
 ${REPO_GROUP}_CHECKOUT_MAIN_TARGETS += checkout-main-${REPO_NAME}
 ${REPO_VIS}_CHECKOUT_MAIN_TARGETS += checkout-main-${REPO_NAME}
@@ -315,6 +325,13 @@ gitclean-workspace:
 
 .PHONY: gitclean
 gitclean: gitclean-workspace ${GITCLEAN_TARGETS}
+
+.PHONY: ls-files-workspace
+ls-files-workspace:
+	$(Q)git ls-files ${LS_FILES_ARGS}
+
+.PHONY: ls-files
+ls-files: ls-files-workspace ${LS_FILES_TARGETS}
 
 .PHONY: checkout-main-workspace
 checkout-main-workspace:
