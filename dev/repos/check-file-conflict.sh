@@ -5,8 +5,8 @@
 
 TEMP_FILE="$(mktemp)"
 
-make -j ls-files | sort -i | uniq -i -D > ${TEMP_FILE}
-make -j ls-files | sed 's|/[^/]\+$||' | sort -u | sort -i | uniq -i -D >> ${TEMP_FILE}
+make -j ls-files | sort --ignore-case | uniq -i -D > ${TEMP_FILE}
+make -j ls-files | sed 's|/[^/]\+$||' | sort -u | sort --ignore-case | uniq -i -D >> ${TEMP_FILE}
 
 NB_DUPS=$(wc -l < ${TEMP_FILE})
 
