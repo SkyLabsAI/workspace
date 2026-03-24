@@ -1436,6 +1436,19 @@ wheels = [
 ]
 
 [[package]]
+name = "hypothesis-jsonschema"
+version = "0.23.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "hypothesis" },
+    { name = "jsonschema" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/4f/ad/2073dd29d8463a92c243d0c298370e50e0d4082bc67f156dc613634d0ec4/hypothesis-jsonschema-0.23.1.tar.gz", hash = "sha256:f4ac032024342a4149a10253984f5a5736b82b3fe2afb0888f3834a31153f215", size = 42896, upload-time = "2024-02-28T20:33:50.209Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/17/44/635a8d2add845c9a2d99a93a379df77f7e70829f0a1d7d5a6998b61f9d01/hypothesis_jsonschema-0.23.1-py3-none-any.whl", hash = "sha256:a4d74d9516dd2784fbbae82e009f62486c9104ac6f4e3397091d98a1d5ee94a2", size = 29200, upload-time = "2024-02-28T20:33:48.744Z" },
+]
+
+[[package]]
 name = "identify"
 version = "2.6.15"
 source = { registry = "https://pypi.org/simple" }
@@ -1706,6 +1719,9 @@ wheels = [
 name = "jsonrpc-tp"
 version = "0.0.1"
 source = { editable = "fmdeps/rocq-agent-toolkit/ocaml-jsonrpc-tp/python" }
+dependencies = [
+    { name = "pydantic" },
+]
 
 [package.dev-dependencies]
 dev = [
@@ -1718,6 +1734,7 @@ dev = [
 ]
 
 [package.metadata]
+requires-dist = [{ name = "pydantic", specifier = ">=2.12.5" }]
 
 [package.metadata.requires-dev]
 dev = [
@@ -4117,6 +4134,8 @@ dev = [
     { name = "black" },
     { name = "cram" },
     { name = "flake8" },
+    { name = "hypothesis" },
+    { name = "hypothesis-jsonschema" },
     { name = "isort" },
     { name = "mypy" },
     { name = "pytest" },
@@ -4149,6 +4168,8 @@ dev = [
     { name = "black", specifier = ">=23.7.0,<24" },
     { name = "cram", specifier = ">=0.7" },
     { name = "flake8", specifier = ">=6.0.0,<7" },
+    { name = "hypothesis", specifier = ">=6.131.0" },
+    { name = "hypothesis-jsonschema", specifier = ">=0.23.1" },
     { name = "isort", specifier = ">=5.12.0,<6" },
     { name = "mypy", specifier = ">=1.18.2,<2" },
     { name = "pytest", specifier = ">=8.4.2,<9" },
