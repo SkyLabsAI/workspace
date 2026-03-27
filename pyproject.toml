@@ -35,6 +35,7 @@ members = [
     "fmdeps/rocq-agent-toolkit/rocq-dune-util",
     "fmdeps/rocq-agent-toolkit/pyroof-search",
     "fmdeps/rocq-agent-toolkit/rocq-agent-toolkit-utils",
+    "fmdeps/rocq-agent-toolkit/rocq-ltac-interp",
 ]
 
 [tool.ruff]
