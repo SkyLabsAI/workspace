@@ -4,3 +4,7 @@ _CoqProject
 .env
 .DS_Store
 **/.DS_Store
+*.specs
+.lia.cache
+.nia.cache
+.nra.cache
