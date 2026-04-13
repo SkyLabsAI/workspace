@@ -37,6 +37,7 @@ REPOS += fmdeps:SkyLabsAI/ci:main:ci/:owned:private
 
 # Vendored repositories.
 REPOS += vendored:SkyLabsAI/elpi:skylabs-master:elpi/:upstream:public
+REPOS += vendored:SkyLabsAI/flocq:skylabs-master:flocq/:upstream:public
 REPOS += vendored:SkyLabsAI/rocq-elpi:skylabs-master:rocq-elpi/:upstream:public
 REPOS += vendored:SkyLabsAI/rocq-equations:skylabs-main:rocq-equations/:upstream:public
 REPOS += vendored:SkyLabsAI/rocq-ext-lib:skylabs-master:rocq-ext-lib/:upstream:public
