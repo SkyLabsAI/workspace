@@ -1,4 +1,6 @@
 opam-version: "2.0"
+name: "skylabs-deps"
+version: "dev"
 synopsis: "External deps for the SkyLabs AI toolchain"
 maintainer: [
   "Rodolphe Lepigre <rodolphe.lepigre@skylabs-ai.com>"
@@ -200,4 +202,3 @@ depends: [
   "zarith" {= "1.14"}
   "zarith_stubs_js" {= "v0.17.0"}
 ]
-build: []
