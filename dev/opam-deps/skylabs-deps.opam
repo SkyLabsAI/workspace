@@ -94,7 +94,7 @@ depends: [
   "merlin-lib"
   "mtime"
   "num"
-  "ocaml"
+  "ocaml" {= "5.4.1"}
   "ocaml-compiler"
   "ocaml-compiler-libs"
   "ocaml-config"
