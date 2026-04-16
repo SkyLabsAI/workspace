@@ -42,6 +42,7 @@ depends: [
   "cmdliner" {= "2.1.0"}
   "conf-gmp" {= "5"}
   "conf-libffi" {= "2.0.0"}
+  "conf-linux-libc-dev" {= "0" & os = "linux"}
   "conf-pkg-config" {= "4"}
   "conf-zlib" {= "1"}
   "core" {= "v0.17.2"}
@@ -100,6 +101,7 @@ depends: [
   "ocaml-index" {= "5.7.0-504"}
   "ocaml-lsp-server" {= "1.26.0"}
   "ocaml-option-flambda" {= "1"}
+  "ocaml-option-fp" {= "1" & (os = "linux" | os = "macos") & arch = "x86_64"}
   "ocaml-syntax-shims" {= "1.0.0"}
   "ocaml-variants" {= "5.4.1+options"}
   "ocaml-version" {= "4.0.4"}
