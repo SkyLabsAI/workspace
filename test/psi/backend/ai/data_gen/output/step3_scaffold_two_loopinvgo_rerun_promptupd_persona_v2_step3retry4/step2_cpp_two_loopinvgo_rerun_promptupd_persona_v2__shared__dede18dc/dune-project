@@ -1,0 +1,15 @@
+(lang dune 3.21)
+(using rocq 0.11)
+(name step2_cpp_two_loopinvgo_rerun_promptupd_persona_v2__shared__dede18dc)
+
+(generate_opam_files)
+
+(package
+ (name step2_cpp_two_loopinvgo_rerun_promptupd_persona_v2__shared__dede18dc)
+ (synopsis "step2_cpp_two_loopinvgo_rerun_promptupd_persona_v2__shared__dede18dc")
+ (depends
+  (rocq-skylabs-cpp2v (= dev))
+  elpi-cpp
+  rocq-skylabs-auto-core
+  rocq-skylabs-auto-cpp
+  rocq-skylabs-cpp-stdlib))
