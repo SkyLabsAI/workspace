@@ -26,6 +26,7 @@ members = [
     "psi-utils",
     "pyroof-search",
     "remote-agent-server",
+    "remove-hints",
     "rocq-agent-toolkit-backend",
     "rocq-agent-toolkit-utils",
     "rocq-agent-tools-pydantic",
@@ -3868,6 +3869,17 @@ dev = [
     { name = "ruff", specifier = ">=0.14.2" },
     { name = "taskipy", specifier = ">=1.14.1" },
 ]
+
+[[package]]
+name = "remove-hints"
+version = "0.1.0"
+source = { virtual = "psi/backend/remove_hints" }
+dependencies = [
+    { name = "rocq-doc-manager" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "rocq-doc-manager", editable = "fmdeps/rocq-agent-toolkit/rocq-doc-manager/python" }]
 
 [[package]]
 name = "requests"

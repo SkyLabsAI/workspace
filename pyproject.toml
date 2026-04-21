@@ -37,6 +37,7 @@ members = [
     "fmdeps/rocq-agent-toolkit/rocq-agent-toolkit-utils",
     "fmdeps/rocq-agent-toolkit/rocq-ltac-interp",
     "psi/backend/lemma_splitter",
+    "psi/backend/remove_hints",
 ]
 
 [tool.ruff]
