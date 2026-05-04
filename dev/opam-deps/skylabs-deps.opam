@@ -16,10 +16,10 @@ bug-reports: "https://github.com/SkylabsAI/fm-ci/issues"
 depends: [
   "angstrom" {= "0.16.1"}
   "astring" {= "0.8.5"}
-  "atd" {= "4.1.0"}
-  "atdgen" {= "4.1.0"}
-  "atdgen-runtime" {= "4.1.0"}
-  "atdts" {= "4.1.0"}
+  "atd" {= "4.2.0"}
+  "atdgen" {= "4.2.0"}
+  "atdgen-runtime" {= "4.2.0"}
+  "atdts" {= "4.2.0"}
   "base" {= "v0.17.3"}
   "base-bigarray" {= "base"}
   "base-bytes" {= "base"}
@@ -34,12 +34,12 @@ depends: [
   "bigstringaf" {= "0.10.0"}
   "bin_prot" {= "v0.17.0-1"}
   "biniou" {= "1.2.2"}
-  "bos" {= "0.2.1"}
+  "bos" {= "0.3.0"}
   "camlp-streams" {= "5.0.1"}
   "camlzip" {= "1.14"}
   "capitalization" {= "v0.17.0"}
   "chrome-trace" {= "3.22.2"}
-  "cmdliner" {= "2.1.0"}
+  "cmdliner" {= "2.1.1"}
   "conf-gmp" {= "5"}
   "conf-libffi" {= "2.0.0"}
   "conf-linux-libc-dev" {= "0" & os = "linux"}
@@ -53,7 +53,7 @@ depends: [
   "csexp" {= "1.5.2"}
   "ctypes" {= "0.24.0"}
   "ctypes-foreign" {= "0.24.0"}
-  "dot-merlin-reader" {= "5.7.0-504"}
+  "dot-merlin-reader" {= "5.7.1-504"}
   "dune" {= "3.22.2"}
   "dune-build-info" {= "3.22.2"}
   "dune-configurator" {= "3.22.2"}
@@ -82,7 +82,7 @@ depends: [
   "jst-config" {= "v0.17.0"}
   "logs" {= "0.10.0"}
   "lsp" {= "1.26.0"}
-  "lwt" {= "6.1.1"}
+  "lwt" {= "6.1.2"}
   "memprof-limits" {= "0.3.0"}
   "memtrace" {= "0.2.3"}
   "menhir" {= "20260209"}
@@ -90,21 +90,21 @@ depends: [
   "menhirGLR" {= "20260209"}
   "menhirLib" {= "20260209"}
   "menhirSdk" {= "20260209"}
-  "merlin" {= "5.7.0-504"}
-  "merlin-lib" {= "5.7.0-504"}
+  "merlin" {= "5.7.1-504"}
+  "merlin-lib" {= "5.7.1-504"}
   "mtime" {= "2.1.0"}
   "num" {= "1.6"}
   "ocaml" {= "5.4.1"}
   "ocaml-compiler" {= "5.4.1"}
   "ocaml-compiler-libs" {= "v0.17.0"}
   "ocaml-config" {= "3"}
-  "ocaml-index" {= "5.7.0-504"}
+  "ocaml-index" {= "5.7.1-504"}
   "ocaml-lsp-server" {= "1.26.0"}
   "ocaml-option-flambda" {= "1"}
   "ocaml-option-fp" {= "1" & (os = "linux" | os = "macos") & arch = "x86_64"}
   "ocaml-syntax-shims" {= "1.0.0"}
   "ocaml-variants" {= "5.4.1+options"}
-  "ocaml-version" {= "4.0.4"}
+  "ocaml-version" {= "4.1.0"}
   "ocaml_intrinsics_kernel" {= "v0.17.1"}
   "ocamlbuild" {= "0.16.1"}
   "ocamlc-loc" {= "3.22.2"}
