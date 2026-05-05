@@ -7,20 +7,13 @@ let pp_command : Format.formatter -> Dune_log.command -> unit = fun ff cmd ->
   List.iter (Format.fprintf ff "%s\n%!") cmd.Dune_log.output;
   Format.fprintf ff "[%i]\n%!" cmd.Dune_log.status
 
-let run : bool -> bool -> string option -> unit = fun json all log_file ->
-  let log_file =
-    match log_file with
-    | Some(log_file) -> log_file
-    | None           ->
-    match Dune_log.locate () with
-    | Some(log_file) -> log_file
-    | None           ->
-        Printf.eprintf "Could not locate the dune log. ";
-        Printf.eprintf "Did you run \"dune build\"?\n%!";
-        exit 3
-  in
+let run : bool -> bool -> string option -> unit = fun json all trace_file ->
   let commands =
-    try Dune_log.read ~log_file with
+    try
+      match trace_file with
+      | Some(fname) -> In_channel.with_open_text fname (Dune_log.read ~fname)
+      | None        -> Dune_log.read ~fname:"-" stdin
+    with
     | Sys_error(s)      ->
         Printf.eprintf "File system error: %s.\n%!" s;
         exit 2
@@ -53,17 +46,20 @@ let all =
   in
   Arg.(value & flag & info ["all"] ~doc)
 
-let log_file =
+let trace_file =
   let doc =
-    "Specify a path to the dune log to process. When not specified, the log \
-     from the current dune workspace is located."
+    "Specify a path to a file containing a JSONL file holding a dune log. \
+     When not specified, the log is read on the standard input."
   in
-  let i = Arg.(info ["log-file"] ~docv:"LOGFILE" ~doc) in
+  let i = Arg.(info ["trace-file"] ~docv:"TRACEFILE" ~doc) in
   Arg.(value & opt (some non_dir_file) None & i)
 
 let cmd =
-  let doc = "Builds a report form the dune build log." in
-  let term = Term.(const run $ json $ all $ log_file) in
+  let doc =
+    "Builds a report from a JSONL dune build trace. Such a trace can be \
+     obtained using $(b,dune trace cat)."
+  in
+  let term = Term.(const run $ json $ all $ trace_file) in
   let exits =
     let open Cmd.Exit in
     info ~doc:"On success." ok ::
