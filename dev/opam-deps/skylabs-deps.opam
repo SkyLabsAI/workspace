@@ -112,6 +112,7 @@ depends: [
   "ocamlformat" {= "0.29.0"}
   "ocamlformat-lib" {= "0.29.0"}
   "ocamlformat-rpc-lib" {= "0.29.0"}
+  "ocamlgraph" {= "2.2.0"}
   "ocp-indent" {= "1.9.0"}
   "ocplib-endian" {= "1.2"}
   "octavius" {= "1.2.2"}
