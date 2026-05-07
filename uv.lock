@@ -9,7 +9,6 @@ members = [
     "brick-agents",
     "brick-sdk",
     "chat-service",
-    "ci-example",
     "cognition-engine",
     "grpc-server",
     "inference",
@@ -546,21 +545,6 @@ dev = [
     { name = "pytest", specifier = ">=8.4.2,<9" },
     { name = "pytest-asyncio", specifier = ">=1.3.0" },
     { name = "pytest-cov", specifier = ">=7.0.0,<8" },
-]
-
-[[package]]
-name = "ci-example"
-version = "0.1.0"
-source = { virtual = "psi/backend/psi_verifier/ci_example" }
-dependencies = [
-    { name = "ruff" },
-    { name = "taskipy" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "ruff", specifier = ">=0.14.2" },
-    { name = "taskipy", specifier = ">=1.13.0" },
 ]
 
 [[package]]
