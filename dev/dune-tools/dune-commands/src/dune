@@ -1,0 +1,6 @@
+(executable
+ (name main)
+ (public_name dune-commands)
+ (package dune-commands)
+ (preprocess (pps ppx_deriving_yojson))
+ (libraries cmdliner ppx_deriving_yojson.runtime))

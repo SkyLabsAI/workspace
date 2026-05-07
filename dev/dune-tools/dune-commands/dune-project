@@ -1,5 +1,5 @@
 (lang dune 3.21)
-(name dune-report)
+(name dune-commands)
 (generate_opam_files true)
 
 (source (github SkylabsAI/workspace))
@@ -8,8 +8,8 @@
 (license LGPL-2.0-or-later)
 
 (package
- (name dune-report)
- (synopsis "Library for interpreting failures from the dune log")
+ (name dune-commands)
+ (synopsis "Library for extracting run commands from a dune trace")
  (depends
   cmdliner
   ppx_deriving_yojson))

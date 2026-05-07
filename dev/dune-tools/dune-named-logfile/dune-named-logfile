@@ -2,10 +2,10 @@
 set -o errexit
 set -o pipefail
 
-# "dune-named-logfile ARGS ..." invokes "dune ARGS ...", and then copies the
-# resulting dune "_build/log" to the path specified by SL_DUNE_LOG_FILE. If
-# SL_LOG_APPEND is set and non-empty, the log contents is added to the end of
-# the file instead of overwriting it.
+# "dune-named-logfile ARGS ..." invokes "dune ARGS ...", and then extracts the
+# data from "_build/trace.csexp" to the path specified by environment variable
+# SL_DUNE_LOG_FILE using "dune trace cat ...". If SL_DUNE_LOG_APPEND is set
+# and non-empty, the data is added to the end of the file.
 #
 # This script is meant to be put in the PATH under name "dune". This is useful
 # when "dune" invocations cannot easily be replaced by "dune-named-logfile".
@@ -14,8 +14,9 @@ set -o pipefail
 #
 # Options (all passed via environment variables):
 # - SL_DUNE_ORIGINAL: absolute path to the original "dune" binary.
-# - SL_DUNE_LOG_FILE: target log file.
-# - SL_DUNE_LOG_APPEND: if non-empty, the log is appended and not overwritten.
+# - SL_DUNE_LOG_FILE: target data file (in jsonl format).
+# - SL_DUNE_LOG_APPEND: if non-empty, append data at the end of the file that
+#   is specified by SL_DUNE_LOG_FILE instead of overwriting it.
 
 SELF=$(realpath $0)
 DUNE=$(realpath "${SL_DUNE_ORIGINAL:=$(which dune)}")
@@ -56,16 +57,16 @@ else
   fi
 
   BUILD_PATH=$(realpath "${DUNE_PATH}/..")
-  DUNE_LOG="${BUILD_PATH}/log"
-  rm "${DUNE_LOG}"
+  DUNE_TRACE="${BUILD_PATH}/trace.csexp"
+  rm -f "${DUNE_TRACE}"
 
   ${DUNE} "$@" && EXIT=$? || EXIT=$?
 
-  if [ -f "${DUNE_LOG}" ]; then
+  if [ -f "${DUNE_TRACE}" ]; then
     if [ -z "${SL_DUNE_LOG_APPEND}" ]; then
-      cp "${DUNE_LOG}" "${LOG}"
+      ${DUNE} trace cat --trace-file "${DUNE_TRACE}" > "${LOG}"
     else
-      cat "${DUNE_LOG}" >> "${LOG}"
+      ${DUNE} trace cat --trace-file "${DUNE_TRACE}" >> "${LOG}"
     fi
   else
     if [ -z "${SL_DUNE_LOG_APPEND}" ]; then
