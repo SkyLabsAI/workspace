@@ -32,7 +32,6 @@ REPOS += fmdeps:SkyLabsAI/skylabs-fm:main:skylabs-fm/:owned:private
 REPOS += fmdeps:SkyLabsAI/rocq-agent-toolkit:main:rocq-agent-toolkit/:owned:private
 
 # Infrastructure / CI repositories.
-REPOS += fmdeps:SkyLabsAI/fm-ci:main:fm-ci/:owned:public
 REPOS += fmdeps:SkyLabsAI/ci:main:ci/:owned:private
 
 # Vendored repositories.
