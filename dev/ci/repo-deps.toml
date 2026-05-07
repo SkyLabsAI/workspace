@@ -18,7 +18,7 @@ psi = "psi/*"
 
 # Specifications of dependencies for each of the group defined above.
 [groups-deps]
-vendored = {repos = ["workspace", "ci", "fm-ci"]}
+vendored = {repos = ["workspace", "ci"]}
 bluerock = {repos = ["auto"]}
 psi = {repos = ["skylabs-fm"]}
 
@@ -27,7 +27,6 @@ psi = {repos = ["skylabs-fm"]}
 [repos-deps]
 workspace = {}
 ci = {}
-fm-ci = {}
 BRiCk = {groups = ["vendored"]}
 auto = {repos = ["BRiCk"]}
 brick-libcpp = {repos = ["auto"]}
