@@ -26,17 +26,23 @@ if [[ "${FETCH:-false}" = "true" ]]; then
 fi
 
 CUR_BRANCH="$(git -C ${REPO_DIR} branch --show-current)"
-CUR_UPSTREAM="$(git -C ${REPO_DIR} rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo -n)"
+CUR_UPSTREAM_BRANCH="$(git -C ${REPO_DIR} config get branch.${CUR_BRANCH}.merge | sed -e 's,^refs/heads/,,' || echo -n)"
+CUR_REMOTE="$(git -C ${REPO_DIR} config get branch.${CUR_BRANCH}.remote || echo -n)"
+CUR_UPSTREAM="$(git -C ${REPO_DIR} rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null | sed -e 's,^@{u}$,,' || echo -n)"
 CLEAN="true"
+
+if [[ "${CUR_REMOTE}" != "origin" ]]; then
+  STATUS="${STATUS:+$STATUS, }\e[0;31mremote=${CUR_REMOTE}\e[0m"
+fi
 
 if [[ "${CUR_BRANCH}" = "" ]]; then
   STATUS="no_branch"
   CLEAN="false"
-elif [[ "${CUR_BRANCH}" = ${REPO_DEFAULT} || "${CUR_UPSTREAM}" = "origin/${REPO_DEFAULT}" ]]; then
+elif [[ "${CUR_BRANCH}" = ${REPO_DEFAULT} || "${CUR_UPSTREAM_BRANCH}" = "${REPO_DEFAULT}" ]]; then
   if [[ "${CUR_BRANCH}" = ${REPO_DEFAULT} ]]; then
-    STATUS="\e[0;32m${CUR_BRANCH}\e[0m"
+    STATUS="${STATUS:+$STATUS, }\e[0;32m${CUR_BRANCH}\e[0m"
   else
-    STATUS="\e[0;32m${CUR_BRANCH}:${REPO_DEFAULT}\e[0m"
+    STATUS="${STATUS:+$STATUS, }\e[0;32m${CUR_BRANCH}:${REPO_DEFAULT}\e[0m"
   fi
   BEHIND=$(git -C ${REPO_DIR} rev-list --count HEAD..origin/${REPO_DEFAULT})
   AHEAD=$(git -C ${REPO_DIR} rev-list --count origin/${REPO_DEFAULT}..HEAD)
@@ -58,13 +64,15 @@ elif [[ "${CUR_BRANCH}" = ${REPO_DEFAULT} || "${CUR_UPSTREAM}" = "origin/${REPO_
   fi
 else
   CLEAN="false"
-  STATUS="\e[0;33m${CUR_BRANCH}\e[0m"
+  STATUS="${STATUS:+$STATUS, }\e[0;33m${CUR_BRANCH}\e[0m"
   BEHIND=$(git -C ${REPO_DIR} rev-list --count HEAD..origin/${REPO_DEFAULT})
   if [[ "${BEHIND}" -gt 0 ]]; then
     STATUS="${STATUS}, \e[0;31mneeds_rebase(${BEHIND})\e[0m"
   fi
-  if ! git -C ${REPO_DIR} config "branch.${CUR_BRANCH}.remote" > /dev/null; then
+  if [[ -z "${CUR_REMOTE}" ]]; then
     STATUS="${STATUS}, no_remote"
+  elif [[ -z "${CUR_UPSTREAM}" ]]; then
+    STATUS="${STATUS}, \e[0;31mupstream ${CUR_UPSTREAM_BRANCH} missing\e[0m"
   else
     BEHIND=$(git -C ${REPO_DIR} rev-list --count HEAD..@{u})
     AHEAD=$(git -C ${REPO_DIR} rev-list --count @{u}..HEAD)
