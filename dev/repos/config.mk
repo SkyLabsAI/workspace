@@ -50,6 +50,7 @@ REPOS += vendored:SkyLabsAI/vsrocq:skylabs-main:vsrocq/:upstream:public
 # BlueRock repositories.
 REPOS += bluerock:SkyLabsAI/bluerock.NOVA:skylabs-proof:NOVA/:downstream:private
 REPOS += bluerock:SkyLabsAI/bluerock.bhv:skylabs-main:bhv/:downstream:private
+REPOS += bluerock:SkyLabsAI/bluerock.bhv-scaffold:greenfield-fm:bhv-scaffold/:downstream:private
 
 # PSI repositories.
 REPOS += psi:SkyLabsAI/protos:main:protos/:owned:private

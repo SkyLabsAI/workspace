@@ -15,6 +15,26 @@ else
 	@echo "Skipping AST generation for ${BHV_DIR} (not cloned)."
 endif
 
+.PHONY: prepare-bhv-scaffold
+prepare-bhv-scaffold:
+ifeq ($(wildcard ${BHV_DIR}-scaffold),${BHV_DIR}-scaffold)
+	@echo "[PREP] ${BHV_DIR}-scaffold"
+	+$(Q)(LLVM=1 BUILD_CACHING=0 SHALLOW=1 CONF_MK=conf.fm.default.mk \
+		GITLAB_URL=${GITLAB_URL} \
+		uv --directory ${BHV_DIR}-scaffold run \
+		   --python 3.13 \
+		   --with-requirements python_requirements.txt \
+		   --no-project --isolated -- $(MAKE) init)
+	+$(Q)(LLVM=1 BUILD_CACHING=0 SHALLOW=1 CONF_MK=conf.fm.default.mk \
+		GITLAB_URL=${GITLAB_URL} \
+		uv --directory ${BHV_DIR}-scaffold run \
+		   --python 3.13 \
+		   --with-requirements python_requirements.txt \
+		   --no-project --isolated -- bear -- $(MAKE))
+else
+	@echo "Skipping AST generation for ${BHV_DIR}-scaffold (not cloned)."
+endif
+
 NOVA_DIR = bluerock/NOVA
 
 .PHONY: ast-prepare-NOVA
@@ -29,12 +49,18 @@ endif
 ast-prepare-bluerock: ast-prepare-bhv ast-prepare-NOVA
 
 .PHONY: clean-bluerock
-clean-bluerock: clean-bhv clean-NOVA
+clean-bluerock: clean-bhv clean-bhv-scaffold clean-NOVA
 
 .PHONY: clean-bhv
 clean-bhv:
 ifeq ($(wildcard ${BHV_DIR}),${BHV_DIR})
 	$(Q)$(MAKE) -C ${BHV_DIR} clean
+endif
+
+.PHONY: clean-bhv-scaffold
+clean-bhv-scaffold:
+ifeq ($(wildcard ${BHV_DIR}-scaffold),${BHV_DIR}-scaffold)
+	$(Q)$(MAKE) -C ${BHV_DIR}-scaffold clean
 endif
 
 .PHONY: clean-NOVA
