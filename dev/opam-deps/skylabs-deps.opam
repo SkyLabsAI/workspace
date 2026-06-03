@@ -43,7 +43,7 @@ depends: [
   "conf-gmp" {= "5"}
   "conf-libffi" {= "2.0.0"}
   "conf-linux-libc-dev" {= "0" & os = "linux"}
-  "conf-pkg-config" {= "4"}
+  "conf-pkg-config" {= "5"}
   "conf-zlib" {= "1"}
   "core" {= "v0.17.2"}
   "core_kernel" {= "v0.17.0"}
