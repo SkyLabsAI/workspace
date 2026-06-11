@@ -46,3 +46,10 @@ term2 - workspace $ echo "- fmdeps/auto/some-other-project/that-spec.v" >> build
 ```
 
 Since `dune build @foo-bar --watch` is still running, as we modify our code and specs, we'll keep getting feed back on the files that we accidentally broke.
+
+# Other targets
+
+Beside `.v` files, one can add:
+ - `.cpp` file names to build their AST;
+ -  dune aliases -- include the path to desired alias, put `@` or `@@` in front and put in quotation marks: `- "@fmdeps/auto/test"`
+ - directory names -- write the path followed by `/*`
