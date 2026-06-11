@@ -1,3 +1,4 @@
+; See dev/build-list/README.md
 (subdir dyn
  (dynamic_include ../dev/build-list/dune.inc))
 

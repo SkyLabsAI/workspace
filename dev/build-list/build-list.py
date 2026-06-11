@@ -7,6 +7,8 @@
 # ]
 # ///
 
+# See README.md
+
 import yaml
 import os
 import os.path
