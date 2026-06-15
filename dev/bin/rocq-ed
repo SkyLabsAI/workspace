@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# This wrapper script can be used to run rocq-ed in the workspace, without the
+# limitations of the raw "dune exec -- rocq-ed" approach. As a reminder, it is
+# not possible to run "dune exec -- rocq-ed init <FILE>" since it invokes dune
+# within dune, and dune does not allow re-entrant invocations. We hence bypass
+# dune on the "init" sub-command, and directly run the compiled binary via its
+# absolute path (in a suitable environment).
+
+if [[ "$1" != "init" ]]; then
+  # Any command that is not "init" can be run via "dune exec -- rocq-ed".
+  exec dune exec -- rocq-ed "$@"
+fi
+
+# Make sure that rocq-ed binary is available.
+dune exec -- rocq-ed 2>/dev/null 1>/dev/null || true
+
+# Locate the workspace root.
+WORKSPACE=$(dune exec --display=quiet -- printenv DUNE_SOURCEROOT)
+
+# Prepare the environment.
+export PATH=${WORKSPACE}/_build/install/default/bin:${PATH}
+export OCAMLPATH=${WORKSPACE}/_build/install/default/lib:${OCAMLPATH}
+
+# Run the binary from an absolute path.
+ROCQ_ED=fmdeps/rocq-agent-toolkit/rocq-doc-manager/bin/rocq-ed/main.exe
+exec ${WORKSPACE}/_build/default/${ROCQ_ED} "$@"
