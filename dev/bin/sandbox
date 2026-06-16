@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+echo "Entering sandbox for $PWD"
+
+bwrap \
+  --ro-bind / / \
+  --ro-bind ${OPAM_SWITCH_PREFIX:-~/.opam} ${OPAM_SWITCH_PREFIX:-~/.opam} \
+  --bind ~/.pi ~/.pi \
+  --dev-bind /dev/null /dev/null \
+  --dev-bind /dev/urandom /dev/urandom \
+  --tmpfs /tmp \
+  --bind "$PWD" "$PWD" \
+  --setenv PS1 "sandbox$ " \
+  sh
