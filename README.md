@@ -69,6 +69,15 @@ make -j$(nproc) stage1  # Build ASTs of client projects.
 dune build              # Build for installation.
 ```
 
+If Dune fails with an error like the following, the workspace-local Rocq
+wrappers have not been prepared yet.
+```text
+[Panic] Error: recursive invocation of "rocq-perf" as "rocq"
+```
+
+Run `make ide-prepare` from the workspace root and retry the build. This
+prepares the Rocq wrapper layout expected by the composed workspace build.
+
 Sub-Repository Control
 ----------------------
 
