@@ -19,6 +19,8 @@ ifneq ($1,sentinel)
 # Add REPO_GROUP to REPO_GROUPS but without dups
 REPO_GROUPS += $(filter-out ${REPO_GROUPS},${REPO_GROUP})
 
+GIT_PEEK_OPTS ?=
+
 CLONE_TARGETS += clone-${REPO_NAME}
 ${REPO_GROUP}_CLONE_TARGETS += clone-${REPO_NAME}
 ${REPO_VIS}_CLONE_TARGETS += clone-${REPO_NAME}
@@ -140,7 +142,7 @@ peek-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	@echo ""
 	@echo "Peeking into ${REPO_DIR}:"
-	@git -C ${REPO_DIR} status --short --branch --untracked-files=normal
+	@git -C ${REPO_DIR} status --short --branch --untracked-files=normal ${GIT_PEEK_OPTS}
 else
 	@echo "No repository in ${REPO_DIR}, cannot peek."
 endif
@@ -328,7 +330,7 @@ push: push-workspace ${PUSH_TARGETS}
 peek-workspace:
 	@echo ""
 	@echo "Peeking into ./"
-	@git status --short --branch --untracked-files=normal
+	@git status --short --branch --untracked-files=normal ${GIT_PEEK_OPTS}
 
 .PHONY: peek
 peek: peek-workspace ${PEEK_TARGETS}
