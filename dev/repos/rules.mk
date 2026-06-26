@@ -19,6 +19,8 @@ ifneq ($1,sentinel)
 # Add REPO_GROUP to REPO_GROUPS but without dups
 REPO_GROUPS += $(filter-out ${REPO_GROUPS},${REPO_GROUP})
 
+GIT_PEEK_OPTS ?=
+
 CLONE_TARGETS += clone-${REPO_NAME}
 ${REPO_GROUP}_CLONE_TARGETS += clone-${REPO_NAME}
 ${REPO_VIS}_CLONE_TARGETS += clone-${REPO_NAME}
@@ -28,6 +30,7 @@ clone-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	@echo "Repo ${REPO_URL} seems already cloned in ${REPO_DIR}."
 else
+	@echo ""
 	@echo "Cloning ${REPO_URL} in ${REPO_DIR}"
 	$(Q)$${CLONE_ENV_${REPO_NAME}} git clone ${CLONE_ARGS} \
         ${REPO_CLONE_REFERENCE_IF_ABLE} \
@@ -43,6 +46,7 @@ lightweight-clone-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	@echo "Repo ${REPO_URL} seems already cloned in ${REPO_DIR}."
 else
+	@echo ""
 	@echo "Cloning ${REPO_URL} in ${REPO_DIR} (lightweight, no checkout)"
 	$(Q)$${CLONE_ENV_${REPO_NAME}} git clone ${CLONE_ARGS} \
         ${REPO_CLONE_REFERENCE_IF_ABLE} \
@@ -88,6 +92,7 @@ ${REPO_MODE}_FETCH_TARGETS += fetch-${REPO_NAME}
 .PHONY: fetch-${REPO_NAME}
 fetch-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
+	@echo ""
 	@echo "Fetching in ${REPO_DIR}."
 	$(Q)git -C ${REPO_DIR} fetch --all --quiet
 else
@@ -101,6 +106,7 @@ ${REPO_MODE}_PULL_TARGETS += pull-${REPO_NAME}
 .PHONY: pull-${REPO_NAME}
 pull-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
+	@echo ""
 	@echo "Pulling in ${REPO_DIR}."
 	$(Q)git -C ${REPO_DIR} pull --rebase
 else
@@ -115,9 +121,11 @@ ${REPO_MODE}_PUSH_TARGETS += push-${REPO_NAME}
 push-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 ifeq (${PUSH_ARGS},)
+	@echo ""
 	@echo "Pushing in ${REPO_DIR}."
 	$(Q)git -C ${REPO_DIR} push
 else
+	@echo ""
 	@echo "Pushing in ${REPO_DIR} (${PUSH_ARGS})."
 	$(Q)git -C ${REPO_DIR} push ${PUSH_ARGS}
 endif
@@ -132,8 +140,9 @@ ${REPO_MODE}_PEEK_TARGETS += peek-${REPO_NAME}
 .PHONY: peek-${REPO_NAME}
 peek-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
+	@echo ""
 	@echo "Peeking into ${REPO_DIR}:"
-	@git -C ${REPO_DIR} status --short --branch --untracked-files=normal
+	@git -C ${REPO_DIR} status --short --branch --untracked-files=normal ${GIT_PEEK_OPTS}
 else
 	@echo "No repository in ${REPO_DIR}, cannot peek."
 endif
@@ -145,6 +154,7 @@ ${REPO_MODE}_GITCLEAN_TARGETS += gitclean-${REPO_NAME}
 .PHONY: gitclean-${REPO_NAME}
 gitclean-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
+	@echo ""
 	@echo "Cleaning ${REPO_DIR}:"
 	$(Q)git -C ${REPO_DIR} clean -xfd
 else
@@ -168,6 +178,7 @@ ${REPO_MODE}_CHECKOUT_MAIN_TARGETS += checkout-main-${REPO_NAME}
 .PHONY: checkout-main-${REPO_NAME}
 checkout-main-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
+	@echo ""
 	@echo "Checking out branch ${REPO_DEFAULT} in ${REPO_DIR}:"
 	$(Q)git -C ${REPO_DIR} checkout ${REPO_DEFAULT}
 else
@@ -181,6 +192,7 @@ ${REPO_MODE}_REBASE_ON_MAIN_TARGETS += rebase-on-main-${REPO_NAME}
 .PHONY: rebase-on-main-${REPO_NAME}
 rebase-on-main-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
+	@echo ""
 	@echo "Rebasing on origin/${REPO_DEFAULT} in ${REPO_DIR}:"
 	$(Q)git -C ${REPO_DIR} rebase origin/${REPO_DEFAULT}
 else
@@ -197,6 +209,7 @@ ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 ifeq (${TAG_ARGS},)
 	@echo "Variable TAG_ARGS not set, not tagging ${REPO_DIR}."
 else
+	@echo ""
 	@echo "Tagging ${REPO_DIR} (${TAG_ARGS}):"
 	$(Q)git -C ${REPO_DIR} tag ${TAG_ARGS}
 endif
@@ -287,6 +300,7 @@ describe: describe-workspace ${DESCRIBE_TARGETS}
 
 .PHONY: fetch-workspace
 fetch-workspace:
+	@echo ""
 	@echo "Fetching at the workspace root."
 	$(Q)git fetch --all --quiet
 
@@ -295,6 +309,7 @@ fetch: fetch-workspace ${FETCH_TARGETS}
 
 .PHONY: pull-workspace
 pull-workspace:
+	@echo ""
 	@echo "Pulling at the workspace root."
 	$(Q)git pull --rebase
 
@@ -304,6 +319,7 @@ pull: pull-workspace
 
 .PHONY: push-workspace
 push-workspace:
+	@echo ""
 	@echo "Pushing at the workspace root."
 	$(Q)git push
 
@@ -312,14 +328,16 @@ push: push-workspace ${PUSH_TARGETS}
 
 .PHONY: peek-workspace
 peek-workspace:
+	@echo ""
 	@echo "Peeking into ./"
-	@git status --short --branch --untracked-files=normal
+	@git status --short --branch --untracked-files=normal ${GIT_PEEK_OPTS}
 
 .PHONY: peek
 peek: peek-workspace ${PEEK_TARGETS}
 
 .PHONY: gitclean-workspace
 gitclean-workspace:
+	@echo ""
 	@echo "Cleaning ./:"
 	$(Q)git clean -xfd
 
@@ -335,6 +353,7 @@ ls-files: ls-files-workspace ${LS_FILES_TARGETS}
 
 .PHONY: checkout-main-workspace
 checkout-main-workspace:
+	@echo ""
 	@echo "Checking out branch main in ./:"
 	$(Q)git checkout main
 
@@ -343,6 +362,7 @@ checkout-main: checkout-main-workspace ${CHECKOUT_MAIN_TARGETS}
 
 .PHONY: rebase-on-main-workspace
 rebase-on-main-workspace:
+	@echo ""
 	@echo "Rebasing on origin/main in ./:"
 	$(Q)git rebase origin/main
 
@@ -354,6 +374,7 @@ tag-workspace:
 ifeq (${TAG_ARGS},)
 	@echo "Variable TAG_ARGS not set, not tagging ./."
 else
+	@echo ""
 	@echo "Tagging ./ (${TAG_ARGS}):"
 	$(Q)git tag ${TAG_ARGS}
 endif
