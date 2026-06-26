@@ -4,6 +4,20 @@ SkyLabs AI Workspace
 This repository provides infrastructure for cloning and working on the various
 SkyLabs AI repositories (public of private), within a single workspace.
 
+Workspace Composition
+---------------------
+
+The workspace is composed by assembling separate repositories using SkyLabs'
+replacement for `git submodules`. The managed repository groups live under
+`fmdeps/`, `vendored/`, `psi/`, and `bluerock/`, with their configuration in
+`dev/repos/config.mk`.
+
+Many nested repositories contain multiple OPAM packages and can be installed
+and used independently outside this workspace; release Docker images install
+those packages separately. Inside this checkout, development should normally use
+the composed workspace build from the workspace root so dependencies are taken
+from the checked-out repositories.
+
 Getting Started
 ---------------
 
@@ -54,6 +68,15 @@ make ide-prepare        # Prepare for a minimal build.
 make -j$(nproc) stage1  # Build ASTs of client projects.
 dune build              # Build for installation.
 ```
+
+If Dune fails with an error like the following, the workspace-local Rocq
+wrappers have not been prepared yet.
+```text
+[Panic] Error: recursive invocation of "rocq-perf" as "rocq"
+```
+
+Run `make ide-prepare` from the workspace root and retry the build. This
+prepares the Rocq wrapper layout expected by the composed workspace build.
 
 Sub-Repository Control
 ----------------------

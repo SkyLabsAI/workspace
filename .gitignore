@@ -3,3 +3,6 @@ _opam/
 .env
 .DS_Store
 **/.DS_Store
+.lia.cache
+.nia.cache
+.nra.cache
