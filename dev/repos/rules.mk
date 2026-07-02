@@ -186,6 +186,22 @@ else
 	@echo "No repository in ${REPO_DIR}, cannot checkout."
 endif
 
+CHECKOUT_BRANCH_TARGETS += checkout-branch-${REPO_NAME}
+${REPO_GROUP}_CHECKOUT_BRANCH_TARGETS += checkout-branch-${REPO_NAME}
+${REPO_VIS}_CHECKOUT_BRANCH_TARGETS += checkout-branch-${REPO_NAME}
+${REPO_MODE}_CHECKOUT_BRANCH_TARGETS += checkout-branch-${REPO_NAME}
+.PHONY: checkout-branch-${REPO_NAME}
+checkout-branch-${REPO_NAME}:
+ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
+	@dev/format.sh ${GIT_FORMATTING} eval \
+		--heading="Checking out branch ${SELECT_BRANCH} in ${REPO_DIR}:" -- \
+		"$(Q)git -C ${REPO_DIR} checkout ${SELECT_BRANCH} || \
+			git -C ${REPO_DIR} checkout -b ${SELECT_BRANCH} origin/${REPO_DEFAULT} || \
+			git -C ${REPO_DIR} checkout -b ${SELECT_BRANCH} HEAD --track=inherit"
+else
+	@echo "No repository in ${REPO_DIR}, cannot checkout."
+endif
+
 REBASE_ON_MAIN_TARGETS += rebase-on-main-${REPO_NAME}
 ${REPO_GROUP}_REBASE_ON_MAIN_TARGETS += rebase-on-main-${REPO_NAME}
 ${REPO_VIS}_REBASE_ON_MAIN_TARGETS += rebase-on-main-${REPO_NAME}
@@ -362,6 +378,17 @@ checkout-main-workspace:
 
 .PHONY: checkout-main
 checkout-main: checkout-main-workspace ${CHECKOUT_MAIN_TARGETS}
+
+.PHONY: checkout-branch-workspace
+checkout-branch-workspace:
+	@dev/format.sh ${GIT_FORMATTING} eval \
+		--heading="Checking out ${SELECT_BRANCH} main in ./:" -- \
+		"$(Q)git checkout ${SELECT_BRANCH} || \
+			git checkout -b ${SELECT_BRANCH} origin/main || \
+			git checkout -b ${SELECT_BRANCH} HEAD --track=inherit ${GIT_PEEK_OPTS}"
+
+.PHONY: checkout
+checkout: checkout-branch-workspace ${CHECKOUT_BRANCH_TARGETS}
 
 .PHONY: rebase-on-main-workspace
 rebase-on-main-workspace:
