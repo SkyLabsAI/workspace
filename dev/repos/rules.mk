@@ -19,7 +19,7 @@ ifneq ($1,sentinel)
 # Add REPO_GROUP to REPO_GROUPS but without dups
 REPO_GROUPS += $(filter-out ${REPO_GROUPS},${REPO_GROUP})
 
-GIT_PEEK_OPTS ?=
+GIT_OPTS ?=
 
 GIT_FORMATTING ?= --skip-first-line --indent
 
@@ -143,7 +143,7 @@ peek-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	@dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Peeking into ${REPO_DIR}:" -- \
-		@git -C ${REPO_DIR} status --short --branch --untracked-files=normal ${GIT_PEEK_OPTS}
+		@git -C ${REPO_DIR} status --short --branch --untracked-files=normal ${GIT_OPTS}
 else
 	@echo "No repository in ${REPO_DIR}, cannot peek."
 endif
@@ -213,7 +213,7 @@ ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	$(eval CURRENT_BRANCH := $$(shell git -C ${REPO_DIR} branch --show-current))
 	@dev/format.sh --indent --skip-first-line run \
 		--heading="Commit to $(CURRENT_BRANCH) in ${REPO_DIR}:" -- \
-		$(Q)git -C ${REPO_DIR} commit -m "${COMMIT_MESSAGE}" -a ${GIT_PEEK_OPTS} \
+		$(Q)git -C ${REPO_DIR} commit -m "${COMMIT_MESSAGE}" -a ${GIT_OPTS} \
 		|| true
 else
 	@echo "No repository in ${REPO_DIR}, cannot commit."
@@ -367,7 +367,7 @@ push: push-workspace ${PUSH_TARGETS}
 peek-workspace:
 	@dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Peeking into ./" -- \
-		@git status --short --branch --untracked-files=normal ${GIT_PEEK_OPTS}
+		@git status --short --branch --untracked-files=normal ${GIT_OPTS}
 
 .PHONY: peek
 peek: peek-workspace ${PEEK_TARGETS}
@@ -403,7 +403,7 @@ checkout-branch-workspace:
 		--heading="Checking out ${SELECT_BRANCH} main in ./:" -- \
 		"$(Q)git checkout ${SELECT_BRANCH} || \
 			git checkout -b ${SELECT_BRANCH} origin/main || \
-			git checkout -b ${SELECT_BRANCH} HEAD --track=inherit ${GIT_PEEK_OPTS}"
+			git checkout -b ${SELECT_BRANCH} HEAD --track=inherit ${GIT_OPTS}"
 
 .PHONY: checkout
 checkout: checkout-branch-workspace ${CHECKOUT_BRANCH_TARGETS}
@@ -414,7 +414,7 @@ commit-workspace:
 	$(eval CURRENT_BRANCH := $$(shell git branch --show-current))
 	@dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Commit to $(CURRENT_BRANCH) in ./:" -- \
-		$(Q)git commit -m "${COMMIT_MESSAGE}" -a ${GIT_PEEK_OPTS} || true
+		$(Q)git commit -m "${COMMIT_MESSAGE}" -a ${GIT_OPTS} || true
 commit: commit-workspace ${COMMIT_TARGETS}
 
 .PHONY: rebase-on-main-workspace
