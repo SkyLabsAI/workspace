@@ -210,7 +210,7 @@ ${REPO_MODE}_COMMIT_TARGETS += commit-${REPO_NAME}
 commit-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	echo "${REPO_DIR}"
-	$(eval CURRENT_BRANCH := $$(shell git -C ${REPO_DIR} branch --show-current))
+	$$(eval CURRENT_BRANCH := $$(shell git -C ${REPO_DIR} branch --show-current))
 	@dev/format.sh --indent --skip-first-line run \
 		--heading="Commit to $(CURRENT_BRANCH) in ${REPO_DIR}:" -- \
 		$(Q)git -C ${REPO_DIR} commit -m "${COMMIT_MESSAGE}" -a ${GIT_OPTS} \
@@ -411,7 +411,7 @@ checkout: checkout-branch-workspace ${CHECKOUT_BRANCH_TARGETS}
 .PHONY: commit-workspace commit
 commit-workspace:
 	echo "workspace"
-	$(eval CURRENT_BRANCH := $$(shell git branch --show-current))
+	$$(eval CURRENT_BRANCH := $$(shell git branch --show-current))
 	@dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Commit to $(CURRENT_BRANCH) in ./:" -- \
 		$(Q)git commit -m "${COMMIT_MESSAGE}" -a ${GIT_OPTS} || true
