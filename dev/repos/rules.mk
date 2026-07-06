@@ -1,5 +1,7 @@
 include dev/repos/config.mk
 
+QFORMAT=@
+
 REPO_GROUPS = upstream owned downstream public private
 
 define subrepo_targets
@@ -34,7 +36,7 @@ clone-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	@echo "Repo ${REPO_URL} seems already cloned in ${REPO_DIR}."
 else
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Cloning ${REPO_URL} in ${REPO_DIR}" -- \
 		$(Q)$${CLONE_ENV_${REPO_NAME}} git clone ${CLONE_ARGS} \
 		${REPO_CLONE_REFERENCE_IF_ABLE} \
@@ -50,7 +52,7 @@ lightweight-clone-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	@echo "Repo ${REPO_URL} seems already cloned in ${REPO_DIR}."
 else
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Cloning ${REPO_URL} in ${REPO_DIR} (lightweight, no checkout)" -- \
 		$(Q)$${CLONE_ENV_${REPO_NAME}} git clone ${CLONE_ARGS} \
 	        ${REPO_CLONE_REFERENCE_IF_ABLE} \
@@ -109,7 +111,7 @@ ${REPO_MODE}_PULL_TARGETS += pull-${REPO_NAME}
 .PHONY: pull-${REPO_NAME}
 pull-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Pulling in ${REPO_DIR}." -- \
 		$(Q)git -C ${REPO_DIR} pull --rebase
 else
@@ -124,11 +126,11 @@ ${REPO_MODE}_PUSH_TARGETS += push-${REPO_NAME}
 push-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 ifeq (${PUSH_ARGS},)
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Pushing in ${REPO_DIR}." -- \
 		$(Q)git -C ${REPO_DIR} push
 else
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Pushing in ${REPO_DIR} (${PUSH_ARGS})." -- \
 		$(Q)git -C ${REPO_DIR} push ${PUSH_ARGS}
 endif
@@ -143,7 +145,7 @@ ${REPO_MODE}_PEEK_TARGETS += peek-${REPO_NAME}
 .PHONY: peek-${REPO_NAME}
 peek-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Peeking into ${REPO_DIR}:" -- \
 		@git -C ${REPO_DIR} status --short --branch --untracked-files=normal ${GIT_OPTS}
 else
@@ -158,11 +160,11 @@ ${REPO_MODE}_GITCLEAN_TARGETS += gitclean-${REPO_NAME}
 gitclean-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 ifeq (${GITCLEAN_DRY_RUN},no)
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Cleaning ${REPO_DIR}:" -- \
 		$(Q)git -C ${REPO_DIR} clean -xfd
 else
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Cleaning ${REPO_DIR} (dry run):" -- \
 		$(Q)git -C ${REPO_DIR} clean -nxfd
 endif
@@ -187,7 +189,7 @@ ${REPO_MODE}_CHECKOUT_MAIN_TARGETS += checkout-main-${REPO_NAME}
 .PHONY: checkout-main-${REPO_NAME}
 checkout-main-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Checking out branch ${REPO_DEFAULT} in ${REPO_DIR}:" -- \
 		$(Q)git -C ${REPO_DIR} checkout ${REPO_DEFAULT}
 else
@@ -201,7 +203,7 @@ ${REPO_MODE}_CHECKOUT_BRANCH_TARGETS += checkout-branch-${REPO_NAME}
 .PHONY: checkout-branch-${REPO_NAME}
 checkout-branch-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
-	@dev/format.sh ${GIT_FORMATTING} eval \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} eval \
 		--heading="Checking out branch ${SELECT_BRANCH} in ${REPO_DIR}:" -- \
 		"$(Q)git -C ${REPO_DIR} checkout ${SELECT_BRANCH} || \
 			git -C ${REPO_DIR} checkout -b ${SELECT_BRANCH} origin/${REPO_DEFAULT} || \
@@ -219,7 +221,7 @@ commit-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	echo "${REPO_DIR}"
 	$$(eval CURRENT_BRANCH := $$(shell git -C ${REPO_DIR} branch --show-current))
-	@dev/format.sh --indent --skip-first-line run \
+	$(QFORMAT)dev/format.sh --indent --skip-first-line run \
 		--heading="Commit to $(CURRENT_BRANCH) in ${REPO_DIR}:" -- \
 		$(Q)git -C ${REPO_DIR} commit -m "${COMMIT_MESSAGE}" -a ${GIT_OPTS} \
 		|| true
@@ -235,7 +237,7 @@ ${REPO_MODE}_REBASE_ON_MAIN_TARGETS += rebase-on-main-${REPO_NAME}
 .PHONY: rebase-on-main-${REPO_NAME}
 rebase-on-main-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Rebasing on origin/${REPO_DEFAULT} in ${REPO_DIR}:" -- \
 		$(Q)git -C ${REPO_DIR} rebase origin/${REPO_DEFAULT}
 else
@@ -252,7 +254,7 @@ ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 ifeq (${TAG_ARGS},)
 	@echo "Variable TAG_ARGS not set, not tagging ${REPO_DIR}."
 else
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Tagging ${REPO_DIR} (${TAG_ARGS}):" -- \
 		$(Q)git -C ${REPO_DIR} tag ${TAG_ARGS}
 endif
@@ -335,9 +337,9 @@ show-config: show-config-workspace $(SHOW_CONFIG_TARGETS)
 
 .PHONY: describe-workspace
 describe-workspace:
-	@dev/format.sh ${GIT_FORMATTING} run -- \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run -- \
 		@git log --pretty=tformat:'./: %H' -n 1
-	@dev/format.sh ${GIT_FORMATTING} --no-skip-first-line eval -- \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} --no-skip-first-line eval -- \
 		'@git diff HEAD --quiet || echo "./ is dirty"'
 
 .PHONY: describe
@@ -345,7 +347,7 @@ describe: describe-workspace ${DESCRIBE_TARGETS}
 
 .PHONY: fetch-workspace
 fetch-workspace:
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Fetching at the workspace root." -- \
 		$(Q)git fetch --all --quiet
 
@@ -354,7 +356,7 @@ fetch: fetch-workspace ${FETCH_TARGETS}
 
 .PHONY: pull-workspace
 pull-workspace:
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Pulling at the workspace root." -- \
 		$(Q)git pull --rebase
 
@@ -364,7 +366,7 @@ pull: pull-workspace
 
 .PHONY: push-workspace
 push-workspace:
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Pushing at the workspace root." -- \
 		$(Q)git push
 
@@ -373,7 +375,7 @@ push: push-workspace ${PUSH_TARGETS}
 
 .PHONY: peek-workspace
 peek-workspace:
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Peeking into ./" -- \
 		@git status --short --branch --untracked-files=normal ${GIT_OPTS}
 
@@ -383,11 +385,11 @@ peek: peek-workspace ${PEEK_TARGETS}
 .PHONY: gitclean-workspace
 gitclean-workspace:
 ifeq (${GITCLEAN_DRY_RUN},no)
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Cleaning ./:" -- \
 		$(Q)git clean -xfd
 else
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Cleaning ./ (dry run, use GITCLEAN_DRY_RUN=no to disable):" -- \
 		$(Q)git clean -nxfd
 endif
@@ -404,7 +406,7 @@ ls-files: ls-files-workspace ${LS_FILES_TARGETS}
 
 .PHONY: checkout-main-workspace
 checkout-main-workspace:
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Checking out branch main in ./:" -- \
 		$(Q)git checkout main
 
@@ -413,7 +415,7 @@ checkout-main: checkout-main-workspace ${CHECKOUT_MAIN_TARGETS}
 
 .PHONY: checkout-branch-workspace
 checkout-branch-workspace:
-	@dev/format.sh ${GIT_FORMATTING} eval \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} eval \
 		--heading="Checking out ${SELECT_BRANCH} main in ./:" -- \
 		"$(Q)git checkout ${SELECT_BRANCH} || \
 			git checkout -b ${SELECT_BRANCH} origin/main || \
@@ -426,14 +428,14 @@ checkout: checkout-branch-workspace ${CHECKOUT_BRANCH_TARGETS}
 commit-workspace:
 	echo "workspace"
 	$$(eval CURRENT_BRANCH := $$(shell git branch --show-current))
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Commit to $(CURRENT_BRANCH) in ./:" -- \
 		$(Q)git commit -m "${COMMIT_MESSAGE}" -a ${GIT_OPTS} || true
 commit: commit-workspace ${COMMIT_TARGETS}
 
 .PHONY: rebase-on-main-workspace
 rebase-on-main-workspace:
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Rebasing on origin/main in ./:" -- \
 		$(Q)git rebase origin/main
 
@@ -445,7 +447,7 @@ tag-workspace:
 ifeq (${TAG_ARGS},)
 	@echo "Variable TAG_ARGS not set, not tagging ./."
 else
-	@dev/format.sh ${GIT_FORMATTING} run \
+	$(QFORMAT)dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Tagging ./ (${TAG_ARGS}):" -- \
 		$(Q)git tag ${TAG_ARGS}
 endif
