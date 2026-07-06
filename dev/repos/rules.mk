@@ -23,6 +23,8 @@ GIT_OPTS ?=
 
 GIT_FORMATTING ?= --skip-first-line --indent
 
+GITCLEAN_DRY_RUN ?= yes
+
 CLONE_TARGETS += clone-${REPO_NAME}
 ${REPO_GROUP}_CLONE_TARGETS += clone-${REPO_NAME}
 ${REPO_VIS}_CLONE_TARGETS += clone-${REPO_NAME}
@@ -155,9 +157,15 @@ ${REPO_MODE}_GITCLEAN_TARGETS += gitclean-${REPO_NAME}
 .PHONY: gitclean-${REPO_NAME}
 gitclean-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
+ifeq (${GITCLEAN_DRY_RUN},no)
 	@dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Cleaning ${REPO_DIR}:" -- \
 		$(Q)git -C ${REPO_DIR} clean -xfd
+else
+	@dev/format.sh ${GIT_FORMATTING} run \
+		--heading="Cleaning ${REPO_DIR} (dry run):" -- \
+		$(Q)git -C ${REPO_DIR} clean -nxfd
+endif
 else
 	@echo "No repository in ${REPO_DIR}, cannot clean."
 endif
@@ -374,9 +382,15 @@ peek: peek-workspace ${PEEK_TARGETS}
 
 .PHONY: gitclean-workspace
 gitclean-workspace:
+ifeq (${GITCLEAN_DRY_RUN},no)
 	@dev/format.sh ${GIT_FORMATTING} run \
 		--heading="Cleaning ./:" -- \
 		$(Q)git clean -xfd
+else
+	@dev/format.sh ${GIT_FORMATTING} run \
+		--heading="Cleaning ./ (dry run, use GITCLEAN_DRY_RUN=no to disable):" -- \
+		$(Q)git clean -nxfd
+endif
 
 .PHONY: gitclean
 gitclean: gitclean-workspace ${GITCLEAN_TARGETS}
