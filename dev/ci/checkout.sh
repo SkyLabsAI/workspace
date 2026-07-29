@@ -36,7 +36,10 @@ make loop-workspace
 
 # Clone all the sub-repos (shallowly).
 if [[ -z "${DO_NOT_CLONE:-}" ]]; then
-    make lightweight-clone -j -O CLONE_ARGS="--quiet"
+    # NOTE: We clone with -j1 on purpose to try to circumvent the following
+    # error in our git-cache-proxy that seems to come up with parallel clones.
+    # > "upstream prematurely closed connection while reading response header from upstream"
+    make lightweight-clone -j1 -O CLONE_ARGS="--quiet"
 fi
 
 # Checkout the specified commit on the sub-repositories.
