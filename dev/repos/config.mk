@@ -27,7 +27,6 @@ REPOS += fmdeps:SkyLabsAI/BRiCk:main:BRiCk/:owned:public
 REPOS += fmdeps:SkyLabsAI/auto-docs:main:auto-docs/:owned:public
 REPOS += fmdeps:SkyLabsAI/auto:main:auto/:owned:private
 REPOS += fmdeps:SkyLabsAI/brick-libcpp:main:brick-libcpp/:owned:public
-REPOS += fmdeps:SkyLabsAI/fm-tools:main:fm-tools/:owned:private
 REPOS += fmdeps:SkyLabsAI/skylabs-fm:main:skylabs-fm/:owned:private
 REPOS += fmdeps:SkyLabsAI/rocq-agent-toolkit:main:rocq-agent-toolkit/:owned:private
 
@@ -52,9 +51,6 @@ REPOS += bluerock:SkyLabsAI/bluerock.NOVA:skylabs-proof:NOVA/:downstream:private
 REPOS += bluerock:SkyLabsAI/bluerock.bhv:skylabs-main:bhv/:downstream:private
 
 # PSI repositories.
-REPOS += psi:SkyLabsAI/protos:main:protos/:owned:private
-REPOS += psi:SkyLabsAI/psi-verifier:main:backend/:owned:private
-REPOS += psi:SkyLabsAI/psi-verifier-ide:main:ide/:owned:private
 REPOS += psi:SkyLabsAI/psi_PROVER.data:main:data/:owned:private
 
 # Variable CLONE_ENV_<REPO_NAME>, where REPO_NAME is a GitHub repo name (i.e.,
