@@ -30,7 +30,6 @@ ci = {}
 BRiCk = {groups = ["vendored"]}
 auto = {repos = ["BRiCk"]}
 brick-libcpp = {repos = ["auto"]}
-fm-tools = {repos = ["auto"]}
 rocq-agent-toolkit = {repos = ["auto"]}
 skylabs-fm = {repos = ["rocq-agent-toolkit"]}
-auto-docs = {repos = ["fm-tools"]}
+auto-docs = {repos = ["skylabs-fm"]}
