@@ -108,7 +108,12 @@ pull-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	@echo ""
 	@echo "Pulling in ${REPO_DIR}."
+ifeq ($(PULL_ERROR_LOG),)
 	$(Q)git -C ${REPO_DIR} pull --rebase
+else
+	$(Q)git -C ${REPO_DIR} pull --rebase || \
+		echo "FAILED: pull in ${REPO_DIR}" >> "${PULL_ERROR_LOG}"
+endif
 else
 	@echo "No repository in ${REPO_DIR}, cannot pull."
 endif
@@ -315,7 +320,17 @@ pull-workspace:
 
 .PHONY: pull
 pull: pull-workspace
-	+$(Q)$(MAKE) --no-print-directory ${PULL_TARGETS}
+	+$(Q)PULL_ERROR_LOG=$$(mktemp); \
+	$(MAKE) PULL_ERROR_LOG="$$PULL_ERROR_LOG" --no-print-directory ${PULL_TARGETS}; \
+	if [ -f "$$PULL_ERROR_LOG" ]; then \
+		echo ""; \
+		echo "============= Pull errors =============="; \
+		cat "$$PULL_ERROR_LOG"; \
+		echo "========================================"; \
+		echo ""; \
+		rm -f "$$PULL_ERROR_LOG"; \
+		exit 1; \
+	fi
 
 .PHONY: push-workspace
 push-workspace:
