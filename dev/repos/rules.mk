@@ -2,6 +2,17 @@ include dev/repos/config.mk
 
 REPO_GROUPS = upstream owned downstream public private
 
+# Run $(1) normally if <action>_ERROR_LOG is unset, or append failures to the
+# log if it is set.  $(2) is the action name (e.g. pull, push).
+# Used inside subrepo_targets where $${...} expands at runtime.
+define WITH_ERROR_HANDLING
+ifeq ($$($(2)_ERROR_LOG),)
+	$(Q)$(1)
+else
+	$(Q)$(1) || echo "FAILED: $(2) in $$${REPO_DIR}" >> "$$($(2)_ERROR_LOG)"
+endif
+endef
+
 define subrepo_targets
 REPO_GROUP = $$(word 1,$$(subst :, ,$$1))
 REPO_PATH = $$(word 2,$$(subst :, ,$$1))
@@ -94,7 +105,7 @@ fetch-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	@echo ""
 	@echo "Fetching in ${REPO_DIR}."
-	$(Q)git -C ${REPO_DIR} fetch --all --quiet
+	$(call WITH_ERROR_HANDLING,git -C ${REPO_DIR} fetch --all --quiet,fetch)
 else
 	@echo "No repository in ${REPO_DIR}, cannot fetch."
 endif
@@ -108,12 +119,7 @@ pull-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	@echo ""
 	@echo "Pulling in ${REPO_DIR}."
-ifeq ($(PULL_ERROR_LOG),)
-	$(Q)git -C ${REPO_DIR} pull --rebase
-else
-	$(Q)git -C ${REPO_DIR} pull --rebase || \
-		echo "FAILED: pull in ${REPO_DIR}" >> "${PULL_ERROR_LOG}"
-endif
+	$(call WITH_ERROR_HANDLING,git -C ${REPO_DIR} pull --rebase,pull)
 else
 	@echo "No repository in ${REPO_DIR}, cannot pull."
 endif
@@ -128,11 +134,11 @@ ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 ifeq (${PUSH_ARGS},)
 	@echo ""
 	@echo "Pushing in ${REPO_DIR}."
-	$(Q)git -C ${REPO_DIR} push
+	$(call WITH_ERROR_HANDLING,git -C ${REPO_DIR} push,push)
 else
 	@echo ""
 	@echo "Pushing in ${REPO_DIR} (${PUSH_ARGS})."
-	$(Q)git -C ${REPO_DIR} push ${PUSH_ARGS}
+	$(call WITH_ERROR_HANDLING,git -C ${REPO_DIR} push ${PUSH_ARGS},push)
 endif
 else
 	@echo "No repository in ${REPO_DIR}, cannot push."
@@ -161,7 +167,7 @@ gitclean-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	@echo ""
 	@echo "Cleaning ${REPO_DIR}:"
-	$(Q)git -C ${REPO_DIR} clean -xfd
+	$(call WITH_ERROR_HANDLING,git -C ${REPO_DIR} clean -xfd,gitclean)
 else
 	@echo "No repository in ${REPO_DIR}, cannot clean."
 endif
@@ -185,7 +191,7 @@ checkout-main-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	@echo ""
 	@echo "Checking out branch ${REPO_DEFAULT} in ${REPO_DIR}:"
-	$(Q)git -C ${REPO_DIR} checkout ${REPO_DEFAULT}
+	$(call WITH_ERROR_HANDLING,git -C ${REPO_DIR} checkout ${REPO_DEFAULT},checkout-main)
 else
 	@echo "No repository in ${REPO_DIR}, cannot checkout."
 endif
@@ -199,7 +205,7 @@ rebase-on-main-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	@echo ""
 	@echo "Rebasing on origin/${REPO_DEFAULT} in ${REPO_DIR}:"
-	$(Q)git -C ${REPO_DIR} rebase origin/${REPO_DEFAULT}
+	$(call WITH_ERROR_HANDLING,git -C ${REPO_DIR} rebase origin/${REPO_DEFAULT},rebase-on-main)
 else
 	@echo "No repository in ${REPO_DIR}, cannot rebase."
 endif
@@ -216,7 +222,7 @@ ifeq (${TAG_ARGS},)
 else
 	@echo ""
 	@echo "Tagging ${REPO_DIR} (${TAG_ARGS}):"
-	$(Q)git -C ${REPO_DIR} tag ${TAG_ARGS}
+	$(call WITH_ERROR_HANDLING,git -C ${REPO_DIR} tag ${TAG_ARGS},tag)
 endif
 else
 	@echo "No repository in ${REPO_DIR}, cannot tag."
