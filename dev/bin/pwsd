@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Prints the current workspace directory.
+
+echo "${BASH_SOURCE[0]%/*/*/*}"
