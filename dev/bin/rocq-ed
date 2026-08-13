@@ -1,27 +1,49 @@
 #!/usr/bin/env bash
+set -eou pipefail
 
 # This wrapper script can be used to run rocq-ed in the workspace, without the
 # limitations of the raw "dune exec -- rocq-ed" approach. As a reminder, it is
 # not possible to run "dune exec -- rocq-ed init <FILE>" since it invokes dune
 # within dune, and dune does not allow re-entrant invocations. We hence bypass
-# dune on the "init" sub-command, and directly run the compiled binary via its
-# absolute path (in a suitable environment).
+# dune, and directly run the compiled binary (in a suitable environment). Note
+# however that there is still a caveat with this script: it only checks if the
+# necessary binaries are available, not if they are up-to-date. While it would
+# be possible to always invoke dune to re-build them, the overhead would be of
+# the order of one second even when they are up-to-date. As a consequence, the
+# script only runs a build when either of them is unavailable.
 
-if [[ "$1" != "init" ]]; then
-  # Any command that is not "init" can be run via "dune exec -- rocq-ed".
-  exec dune exec -- rocq-ed "$@"
+# Workspace directory and local dune install prefix.
+WORKSPACE="$(pwsd)"
+DUNE_PREFIX="${WORKSPACE}/_build/install/default"
+
+# Names of the involved binaries.
+BIN_ROCQ_ED=rocq-ed
+BIN_SPLITTER=rocq-simple-api.private.splitter
+BIN_TOPLEVEL=rocq-simple-api.private.toplevel
+
+# Check that the binaries are available.
+
+BUILD_NEEDED=false
+for BIN in ${BIN_ROCQ_ED} ${BIN_SPLITTER} ${BIN_TOPLEVEL}; do
+  if [ ! -x "${DUNE_PREFIX}/bin/${BIN}" ]; then
+    echo "Binary for ${BIN} not available." >&2
+    BUILD_NEEDED=true
+  fi
+done
+
+# Build dependencies if any binary is missing.
+
+if ${BUILD_NEEDED}; then
+  echo "Building rocq-ed and its dependencies." >&2
+  TARGETS=""
+  for BIN in ${BIN_ROCQ_ED} ${BIN_SPLITTER} ${BIN_TOPLEVEL}; do
+    TARGETS="${TARGETS} _build/install/default/bin/${BIN}"
+  done
+  (cd "${WORKSPACE}"; dune build ${TARGETS})
 fi
 
-# Make sure that rocq-ed binary is available.
-dune exec -- rocq-ed 2>/dev/null 1>/dev/null || true
-
-# Locate the workspace root.
-WORKSPACE=$(dune exec --display=quiet -- printenv DUNE_SOURCEROOT)
-
 # Prepare the environment.
-export PATH=${WORKSPACE}/_build/install/default/bin:${PATH}
-export OCAMLPATH=${WORKSPACE}/_build/install/default/lib:${OCAMLPATH}
+export PATH="${DUNE_PREFIX}/bin:${PATH}"
+export OCAMLPATH="${DUNE_PREFIX}/lib:${OCAMLPATH}"
 
-# Run the binary from an absolute path.
-ROCQ_ED=fmdeps/rocq-agent-toolkit/rocq-doc-manager/bin/rocq-ed/main.exe
-exec ${WORKSPACE}/_build/default/${ROCQ_ED} "$@"
+exec "${DUNE_PREFIX}/bin/${BIN_ROCQ_ED}" "$@"
