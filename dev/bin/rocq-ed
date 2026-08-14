@@ -15,31 +15,13 @@ set -eou pipefail
 # Workspace directory and local dune install prefix.
 WORKSPACE="$(pwsd)"
 DUNE_PREFIX="${WORKSPACE}/_build/install/default"
+BIN_ROCQ_ED="rocq-ed"
 
-# Names of the involved binaries.
-BIN_ROCQ_ED=rocq-ed
-BIN_SPLITTER=rocq-simple-api.private.splitter
-BIN_TOPLEVEL=rocq-simple-api.private.toplevel
+# Build the binary if it is not available.
 
-# Check that the binaries are available.
-
-BUILD_NEEDED=false
-for BIN in ${BIN_ROCQ_ED} ${BIN_SPLITTER} ${BIN_TOPLEVEL}; do
-  if [ ! -x "${DUNE_PREFIX}/bin/${BIN}" ]; then
-    echo "Binary for ${BIN} not available." >&2
-    BUILD_NEEDED=true
-  fi
-done
-
-# Build dependencies if any binary is missing.
-
-if ${BUILD_NEEDED}; then
-  echo "Building rocq-ed and its dependencies." >&2
-  TARGETS=""
-  for BIN in ${BIN_ROCQ_ED} ${BIN_SPLITTER} ${BIN_TOPLEVEL}; do
-    TARGETS="${TARGETS} _build/install/default/bin/${BIN}"
-  done
-  (cd "${WORKSPACE}"; dune build ${TARGETS})
+if [ ! -x "${DUNE_PREFIX}/bin/${BIN_ROCQ_ED}" ]; then
+  echo "Binary for ${BIN_ROCQ_ED} not available, building it" >&2
+  (cd "${WORKSPACE}"; dune build _build/install/default/bin/${BIN_ROCQ_ED})
 fi
 
 # Prepare the environment.
