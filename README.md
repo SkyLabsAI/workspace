@@ -9,7 +9,7 @@ Workspace Composition
 
 The workspace is composed by assembling separate repositories using SkyLabs'
 replacement for `git submodules`. The managed repository groups live under
-`fmdeps/`, `vendored/`, `psi/`, and `bluerock/`, with their configuration in
+`fmdeps/`, `vendored/`, and `bluerock/`, with their configuration in
 `dev/repos/config.mk`.
 
 Many nested repositories contain multiple OPAM packages and can be installed
@@ -42,7 +42,6 @@ make clone -j          # Cloning everything (including private repos).
 make clone-public -j   # Cloning only the publicly-accessible repos.
 make clone-vendored -j # Cloning only the (public) vendored repositories.
 make clone-fmdeps -j   # Cloning (mostly public) repos of fmdeps/.
-make clone-psi -j      # Cloning (private) repos of psi/.
 make clone-bluerock -j # Cloning (private) repos of bluerock/ (used in CI).
 ```
 
@@ -85,7 +84,6 @@ The configuration for sub-repositories is found in `dev/repos/config.mk`. This
 file controls what repos get clone in the workspace, and where. At the moment,
 repositories are gatherd into the followig directories:
 - `fmdeps/` (all the core FM repositories),
-- `psi/` (all other SkyLabs AI repositories),
 - `bluerock/` (all the BlueRock repositories used by FM CI).
 
 Custom `Makefile` targets are provided to run batch operations on repositories
@@ -106,7 +104,7 @@ There are more, but these can be dangerous:
 
 Similar targets are available for groups of repos. For example:
 - `make clone-fmdeps` only clones the sub-repos of the `fmdeps/` directory.
-- `make peek-psi` runs `git status` in sub-repos of the `psi/` directory.
+- `make peek-fmdeps` runs `git status` in sub-repos under `fmdeps/`.
 - `make nuke-bluerock` deletes all sub-repositories in `bluerock/`.
 - `make peek-public` runs `git status` in all the public repos.
 

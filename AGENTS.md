@@ -3,7 +3,7 @@
 This repository is the SkyLabs AI `workspace`: a composed checkout assembled
 from separate repositories using our replacement for `git submodules`.
 
-Nested repositories under `fmdeps/`, `vendored/`, `psi/`, and `bluerock/`
+Nested repositories under `fmdeps/`, `vendored/`, and `bluerock/`
 remain independently meaningful projects. Many contain multiple OPAM packages
 that can be installed and used outside this workspace, and release Docker
 images install those packages separately. Inside this checkout, however, the
