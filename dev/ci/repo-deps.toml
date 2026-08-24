@@ -14,13 +14,11 @@
 [ci-groups]
 vendored = "vendored/*"
 bluerock = "bluerock/*"
-psi = "psi/*"
 
 # Specifications of dependencies for each of the group defined above.
 [groups-deps]
 vendored = {repos = ["workspace", "ci"]}
 bluerock = {repos = ["auto"]}
-psi = {repos = ["skylabs-fm"]}
 
 # Specifications of the dependencies for all repositories not in a group. The
 # repositories are identified by their name, without the "SkyLabsAI/" prefix.

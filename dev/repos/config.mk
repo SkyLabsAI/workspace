@@ -50,9 +50,6 @@ REPOS += vendored:SkyLabsAI/vsrocq:skylabs-main:vsrocq/:upstream:public
 REPOS += bluerock:SkyLabsAI/bluerock.NOVA:skylabs-proof:NOVA/:downstream:private
 REPOS += bluerock:SkyLabsAI/bluerock.bhv:skylabs-main:bhv/:downstream:private
 
-# PSI repositories.
-REPOS += psi:SkyLabsAI/psi_PROVER.data:main:data/:owned:private
-
 # Variable CLONE_ENV_<REPO_NAME>, where REPO_NAME is a GitHub repo name (i.e.,
 # the REPO_PATH without the leading organization), can be used to add variable
 # assignment to the cloning commands for the corresponding repo.
