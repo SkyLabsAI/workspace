@@ -19,7 +19,11 @@ all: stage1
 CPP2V = _build/install/default/bin/cpp2v
 .PHONY: ide-prepare
 ide-prepare:
-	$(Q)$(DUNE_WRAPPER) build --display=short @vendored/rocq/install ${CPP2V}
+	$(Q)$(DUNE_WRAPPER) build --display=short \
+		@fmdeps/rocq-agent-toolkit/rocq-doc-manager/install \
+		@fmdeps/rocq-agent-toolkit/ocaml-rocq-simple-api/install \
+		@vendored/rocq/install \
+		${CPP2V}
 
 .PHONY: stage1
 stage1: ide-prepare ast-prepare-bluerock
