@@ -2,16 +2,20 @@
 
 define check_ver_target
 DEV_CHECK_VER_TARGETS += dev-check-ver-$1
-.PHONY: dev-check-ver-$1
+.PHONY: dev-check-ver-$1 dev-check-ver-$1-full-workspace
 dev-check-ver-$1: dev/check_ver/$1.sh
 	$$(Q)./$$<
 endef
+
+dev-check-ver-clang-full-workspace: dev/check_ver/clang.sh
+	$$(Q)./$$< --full-workspace
 
 DEV_PROGS = make clang opam rust uv bash
 $(foreach prog,$(DEV_PROGS),$(eval $(call check_ver_target,$(prog))))
 
 .PHONY: dev-check-ver
 dev-check-ver: $(DEV_CHECK_VER_TARGETS) dev-check-ver-sed
+dev-check-ver-full-workspace: dev-check-ver dev-check-ver-clang-full-workspace
 
 .PHONY: dev-check-ver-sed
 # Reject systems where `sed` is not GNU `sed` and `gsed` is not available.
@@ -22,7 +26,7 @@ dev-check-ver-sed:
 
 # Setting up the development environment.
 
-.PHONY: dev-setup
+.PHONY: dev-setup dev-setup-full-workspace
 dev-setup: dev-check-ver dev-setup-opam
 
 .PHONY: dev-setup-opam
