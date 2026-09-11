@@ -71,13 +71,46 @@ def list_to_node(sexp):
         print(f'invalid sexp: {sexp}')
         sys.exit(-1)
 
-def make_alias_target(tgt_name, tgts, relative_to):
+def into_source_tree(path, workspace):
+    rel_path = os.path.relpath(path, workspace)
+    split = rel_path.split('/', 2)
+    if len(split) < 3 or split[0] != '_build':
+        return path
+    return os.path.join(workspace, split[2])
+
+def is_rocq_config(dune_file):
+    with open(dune_file) as dune:
+        if any([ 'rocq.theory' in line.split(';', 1)[0] for line in dune]):
+            return True
+
+def find_rocq_projects(path, relative_to, workspace):
+    results = []
+    if not os.path.isdir(path):
+        path = os.path.dirname(path)
+    relative_to = os.path.join(relative_to, '')
+    common = os.path.commonpath([path, relative_to])
+
+    while path.startswith(common):
+        dune_file = os.path.join(path, 'dune')
+        dune_file = into_source_tree(dune_file, workspace)
+
+        if os.path.isfile(dune_file) and is_rocq_config(dune_file):
+            project_path = os.path.join(path, '_RocqProject')
+            rel_path = os.path.relpath(project_path, relative_to)
+            results.append(rel_path)
+        path = os.path.dirname(path)
+    return results
+
+def make_alias_target(tgt_name, tgts, relative_to, workspace):
     deps = []
     tgts = tgts or []
+    project_files = set([])
     for init_tgt in tgts:
         if isinstance(init_tgt, str):
             (tgt_type, tgt) = parse_target(init_tgt)
             pwd = os.path.realpath('.')
+            projects = find_rocq_projects(tgt, relative_to, workspace)
+            project_files.update(projects)
             tgt = replace_extension(tgt, is_alias=tgt_type in ['@','@@'])
             tgt_rel_path = os.path.relpath(tgt, relative_to)
             if tgt_type == '@':
@@ -98,6 +131,9 @@ def make_alias_target(tgt_name, tgts, relative_to):
             deps.append(list_to_node(verb))
         else:
             invalid_target_error(init_tgt, relative_to)
+
+    for project in project_files:
+        deps.append(node('file', [project]))
 
     name = node('name', [tgt_name])
     deps = node('deps', deps)
@@ -171,12 +207,19 @@ def main():
     args = parse_args()
     os.chdir(args.root)
 
+    # `workspace` will different from root because `workspace`
+    # includes the `_build` directory in which `args.root` typically
+    # resides.
+    workspace = ( os.environ.get('DUNE_SOURCEROOT', None) or
+                  os.environ.get('WORKSPACE', None) )
     targets = []
     for fn in args.filename:
         (target_name, _) = os.path.splitext(os.path.basename(fn))
         with open(fn, 'r') as file_in:
             data = yaml.load(file_in, Loader=yaml.SafeLoader)
-            alias = make_alias_target(target_name, data, relative_to=args.relative_to)
+            alias = make_alias_target(target_name, data,
+                                      workspace=workspace,
+                                      relative_to=args.relative_to)
             targets.append(alias)
 
     with open(args.output, 'w') as file_out:
