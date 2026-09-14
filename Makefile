@@ -23,7 +23,7 @@ ide-prepare:
 		@fmdeps/rocq-agent-toolkit/rocq-doc-manager/install \
 		@fmdeps/rocq-agent-toolkit/ocaml-rocq-simple-api/install \
 		@vendored/rocq/install \
-		${CPP2V}
+		@rocqproject ${CPP2V}
 
 .PHONY: stage1
 stage1: ide-prepare ast-prepare-bluerock

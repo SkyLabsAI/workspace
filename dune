@@ -8,3 +8,8 @@
   (deps (:yml (glob_files *.yml)) (:script build-list.py))
   (action
    (system "./%{script} -o %{target} %{yml} --relative-to='../../dyn' --root=../.."))))
+
+(rule
+ (alias rocqproject)
+ (deps (glob_files_rec _RocqProject))
+ (action (progn)))
