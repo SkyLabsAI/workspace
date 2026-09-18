@@ -10,4 +10,4 @@ export WORKTREE_ARGS
 
 make loop LOOP_COMMAND=dev/worktrees/helpers/repo-add.sh -j
 
-# TODO use post_create to copy configs to worktree.
+./dev/worktrees/git-worktree.sh ${WORKTREE_ARGS} post_create "${topic}"
