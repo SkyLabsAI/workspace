@@ -1,0 +1,5 @@
+(cram
+ (applies_to :whole_subtree)
+ (shell bash)
+ (deps
+  (package filter-dune-output)))

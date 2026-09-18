@@ -7,7 +7,7 @@ license: "LGPL-2.0-or-later"
 homepage: "https://github.com/SkylabsAI/workspace"
 bug-reports: "https://github.com/SkylabsAI/workspace/issues"
 depends: [
-  "dune" {>= "3.21"}
+  "dune" {>= "3.22"}
   "odoc" {with-doc}
 ]
 build: [

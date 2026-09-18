@@ -1,4 +1,5 @@
 (executable
  (name main)
  (public_name filter-dune-output)
+ (flags :standard %{dune-warnings})
  (package filter-dune-output))
