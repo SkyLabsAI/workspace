@@ -26,7 +26,7 @@ ide-prepare:
 		@rocqproject ${CPP2V}
 
 .PHONY: stage1
-stage1: ide-prepare ast-prepare-bluerock
+stage1: dev-check-ver-full-workspace ide-prepare ast-prepare-bluerock
 
 .PHONY: pipeline-deps
 pipeline-deps:
