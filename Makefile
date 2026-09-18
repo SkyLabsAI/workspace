@@ -23,6 +23,7 @@ ide-prepare:
 		@fmdeps/rocq-agent-toolkit/rocq-doc-manager/install \
 		@fmdeps/rocq-agent-toolkit/ocaml-rocq-simple-api/install \
 		@vendored/rocq/install \
+		@vendored/vsrocq/install \
 		@rocqproject ${CPP2V}
 
 .PHONY: stage1
