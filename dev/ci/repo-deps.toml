@@ -28,6 +28,7 @@ ci = {}
 BRiCk = {groups = ["vendored"]}
 auto = {repos = ["BRiCk"]}
 brick-libcpp = {repos = ["auto"]}
+brick-libgtest = {repos = ["brick-libcpp"]}
 rocq-agent-toolkit = {repos = ["auto"]}
 skylabs-fm = {repos = ["rocq-agent-toolkit"]}
 auto-docs = {repos = ["skylabs-fm"]}

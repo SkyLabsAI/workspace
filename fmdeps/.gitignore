@@ -2,6 +2,7 @@ BRiCk/
 auto-docs/
 auto/
 brick-libcpp/
+brick-libgtest/
 ci/
 skylabs-fm/
 rocq-agent-toolkit/
