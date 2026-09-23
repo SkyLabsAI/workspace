@@ -27,6 +27,7 @@ REPOS += fmdeps:SkyLabsAI/BRiCk:main:BRiCk/:owned:public
 REPOS += fmdeps:SkyLabsAI/auto-docs:main:auto-docs/:owned:public
 REPOS += fmdeps:SkyLabsAI/auto:main:auto/:owned:private
 REPOS += fmdeps:SkyLabsAI/brick-libcpp:main:brick-libcpp/:owned:public
+REPOS += fmdeps:SkyLabsAI/brick-libgtest:main:brick-libgtest/:owned:private
 REPOS += fmdeps:SkyLabsAI/skylabs-fm:main:skylabs-fm/:owned:private
 REPOS += fmdeps:SkyLabsAI/rocq-agent-toolkit:main:rocq-agent-toolkit/:owned:private
 
