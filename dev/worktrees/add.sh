@@ -1,4 +1,4 @@
-#!/bin/sh -xe
+#!/usr/bin/env -S bash -xe
 
 export topic=$1
 
