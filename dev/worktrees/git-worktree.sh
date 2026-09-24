@@ -171,8 +171,8 @@ case "$cmd" in
 		sayDo [ -e ${orig_main_repo}/bluerock/bhv/conf.mk ] && cp ${orig_main_repo}/bluerock/bhv/conf.mk ${new_main_repo}/bluerock/bhv/
 		sayDo [ -e ${orig_main_repo}/bluerock/NOVA/Makefile.conf ] && cp ${orig_main_repo}/bluerock/NOVA/Makefile.conf ${new_main_repo}/bluerock/NOVA/
 		sayDo cd ${new_main_repo}
-		sayDo direnv allow
 		sayDo make ide-prepare
+		sayDo direnv allow
 		exit $?
 		;;
 esac
