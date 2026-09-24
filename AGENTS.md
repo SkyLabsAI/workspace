@@ -34,10 +34,7 @@ To check the entire Rocq codebase builds, use:
     dune b @vendored/install @fmdeps/all @fmdeps/runtest @bluerock/bhv/proof @bluerock/NOVA/all
 
 Run this through `direnv` (this repo ships an `.envrc`) so the toolchain on
-`PATH` matches the workspace. Don't judge success by piping the build
-through `tee`/a filter without `set -o pipefail` (or checking
-`${PIPESTATUS[0]}`) — the pipe's own exit code can mask a real dune
-failure.
+`PATH` matches the workspace.
 
 ## Scope
 
