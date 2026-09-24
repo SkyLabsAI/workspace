@@ -26,6 +26,16 @@ intended development model is the composed workspace build.
 - For Rocq output tests, use Dune's built-in `.v` plus `.expected` support
   instead of custom diff rules.
 
+## Matching Rocq CI
+
+To check the entire Rocq codebase builds, use:
+
+    make -j$(nproc) stage1
+    dune b @vendored/install @fmdeps/all @fmdeps/runtest @bluerock/bhv/proof @bluerock/NOVA/all
+
+Run this through `direnv` (this repo ships an `.envrc`) so the toolchain on
+`PATH` matches the workspace.
+
 ## Scope
 
 This top-level `AGENTS.md` is workspace-wide guidance. Nested `AGENTS.md` files
