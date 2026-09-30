@@ -22,6 +22,7 @@ ide-prepare:
 	$(Q)$(DUNE_WRAPPER) build --display=short \
 		@fmdeps/rocq-agent-toolkit/rocq-doc-manager/install \
 		@fmdeps/rocq-agent-toolkit/ocaml-rocq-simple-api/install \
+		@fmdeps/BRiCk/rocq-skylabs-brick-cpp-prog/plugin/install \
 		@vendored/rocq/install \
 		@vendored/vsrocq/install \
 		@rocqproject ${CPP2V}
