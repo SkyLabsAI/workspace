@@ -28,13 +28,18 @@ intended development model is the composed workspace build.
 
 ## Matching Rocq CI
 
-To check the entire Rocq codebase builds, use:
+To check that the entire Rocq codebase builds, you have two options:
+1. Open new PRs or push to existing ones will create new CI pipelines.
+2. On machines with enough resources, you can check locally with:
 
     make -j$(nproc) stage1
     dune b @vendored/install @fmdeps/all @fmdeps/runtest @bluerock/bhv/proof @bluerock/NOVA/all
 
 Run this through `direnv` (this repo ships an `.envrc`) so the toolchain on
 `PATH` matches the workspace.
+
+Option 2 might be faster on beefy enough machines, especially servers. In
+doubt, confirm with the user.
 
 ## Scope
 
