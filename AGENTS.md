@@ -41,6 +41,22 @@ Run this through `direnv` (this repo ships an `.envrc`) so the toolchain on
 Option 2 might be faster on beefy enough machines, especially servers. In
 doubt, confirm with the user.
 
+## Attribution of Agent-Written Text
+
+*This section was written by Codex (AI agent).*
+
+- Clearly attribute all agent-written prose that you publish or commit,
+  including pull request descriptions, issue bodies, review comments, commit
+  messages, documentation, and explanatory source comments.
+- Put the attribution in the text itself, for example:
+  `Written by Codex (AI agent).` Do not rely solely on the Git author or the
+  account posting it.
+- Name the agent and, when known, its model and reasoning effort. Do not guess
+  model information that is unavailable.
+- Preserve attribution when copying or adapting agent-written text. For mixed
+  human and agent contributions, identify the agent's contribution accurately;
+  use wording such as `Edited with Codex (AI agent).` where appropriate.
+
 ## Scope
 
 This top-level `AGENTS.md` is workspace-wide guidance. Nested `AGENTS.md` files
