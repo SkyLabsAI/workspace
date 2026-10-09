@@ -28,6 +28,16 @@ intended development model is the composed workspace build.
 
 ## Matching Rocq CI
 
+CI tests the composed result of integrating the selected pull request branches
+with their repositories' current `main` branches, by merging or rebasing; it
+does not test the isolated PR heads. Before diagnosing a downstream regression,
+reproduce those integrated revisions for every component, including dependent
+PRs, and record their source revisions. A build of a stale component branch can
+otherwise suggest unnecessary changes to downstream proofs or shared theory.
+Use isolated worktrees for this validation. Update PR bases by rebasing when
+necessary, preserving contributor attribution; do not publish validation-only
+merge commits on the PR branches.
+
 To check that the entire Rocq codebase builds, you have two options:
 1. Open new PRs or push to existing ones will create new CI pipelines.
 2. On machines with enough resources, you can check locally with:
