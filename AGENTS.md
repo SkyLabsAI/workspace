@@ -41,6 +41,40 @@ Run this through `direnv` (this repo ships an `.envrc`) so the toolchain on
 Option 2 might be faster on beefy enough machines, especially servers. In
 doubt, confirm with the user.
 
+## Profling
+In the default dune profile (`sl_timing`), any file built through dune records
+profiling spans in the corresponding .glob file that is created in
+`_build/default`. The following command extracts the data.
+
+```bash
+dune exec -- globfs extract _build/default/<full file path without suffix>.glob
+```
+
+This creates `<file>.glob.*` files, of which two are relevant for profiling:
+1. `<file>.glob.log.json` containing logging spans with profiling data.
+   This is fine-grained data that can be used to identify changes in the
+   automation and even in individual hints.
+2. `<file>.glob.perf.json` containing Rocq's performance spans.
+   This is Vernacular-level profiling data about Rocq commands and tactics.
+
+Individual tactics can be profiled using `with_log_file "/tmp/<name>.json"`.
+To profile top-level commands or entire sections of files, enclose them with
+```rocq
+Ltac2 Eval logger.Log.reset_log ().
+…
+Ltac2 Eval logger.Log.output_log_file "/tmp/<name>.json".
+```
+
+The logger reports warnings with the default log levels (`0`) which can be
+ignored. It will still emit spans that contain the profiling data.
+
+Fine-grained profiling data generated this way or found in `.glob.log.json` files
+can be converted to `perf script`-like output via
+
+```bash
+dune exec -- rocq-perf.perf-script /path/to/file.json > output.script
+```
+
 ## Scope
 
 This top-level `AGENTS.md` is workspace-wide guidance. Nested `AGENTS.md` files
