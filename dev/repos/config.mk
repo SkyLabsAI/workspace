@@ -40,7 +40,6 @@ REPOS += vendored:SkyLabsAI/flocq:skylabs-master:flocq/:upstream:public
 REPOS += vendored:SkyLabsAI/rocq-elpi:skylabs-master:rocq-elpi/:upstream:public
 REPOS += vendored:SkyLabsAI/rocq-equations:skylabs-main:rocq-equations/:upstream:public
 REPOS += vendored:SkyLabsAI/rocq-iris:skylabs-master:rocq-iris/:upstream:public
-REPOS += vendored:SkyLabsAI/rocq-lsp:skylabs-main:rocq-lsp/:upstream:public
 REPOS += vendored:SkyLabsAI/rocq-stdlib:skylabs-master:rocq-stdlib/:upstream:public
 REPOS += vendored:SkyLabsAI/rocq-stdpp:skylabs-master:rocq-stdpp/:upstream:public
 REPOS += vendored:SkyLabsAI/rocq:skylabs-master:rocq/:upstream:public
