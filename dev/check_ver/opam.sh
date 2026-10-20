@@ -5,7 +5,7 @@
 
 PROG="opam"
 URL="https://opam.ocaml.org/doc/Install.html"
-MIN="2.2.1"
+MIN="2.6.1"
 
 print_ver() {
   opam --version
