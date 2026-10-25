@@ -19,8 +19,11 @@ intended development model is the composed workspace build.
   development model.
 - If a composed build reports a missing tool or dependency, fix or report that
   environment issue instead of switching roots.
-- For Rocq `.v` edit loops, prefer `rocq-ed`: `rocq-ed init` builds
-  dependencies by default, and `--no-build-deps` is only an explicit opt-out
+- For Rocq `.v` edit loops, follow the README's
+  [workspace environment setup](README.md#loading-the-workspace-environment)
+  and [`make ide-prepare` instructions](README.md#building), then use
+  `rocq-ed init path/to/file.v`. Initialization builds dependencies by default,
+  and `--no-build-deps` is only an explicit opt-out
   when dependencies are known to be current. Use composed Dune builds from the
   workspace root for final validation.
 - For Rocq output tests, use Dune's built-in `.v` plus `.expected` support
