@@ -26,8 +26,8 @@ if [[ "${FETCH:-false}" = "true" ]]; then
 fi
 
 CUR_BRANCH="$(git -C ${REPO_DIR} branch --show-current)"
-CUR_UPSTREAM_BRANCH="$(git -C ${REPO_DIR} config get branch.${CUR_BRANCH}.merge | sed -e 's,^refs/heads/,,' || echo -n)"
-CUR_REMOTE="$(git -C ${REPO_DIR} config get branch.${CUR_BRANCH}.remote || echo -n)"
+CUR_UPSTREAM_BRANCH="$(git -C ${REPO_DIR} config --get branch.${CUR_BRANCH}.merge | sed -e 's,^refs/heads/,,' || echo -n)"
+CUR_REMOTE="$(git -C ${REPO_DIR} config --get branch.${CUR_BRANCH}.remote || echo -n)"
 CUR_UPSTREAM="$(git -C ${REPO_DIR} rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null | sed -e 's,^@{u}$,,' || echo -n)"
 CLEAN="true"
 
