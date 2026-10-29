@@ -33,7 +33,12 @@ To check that the entire Rocq codebase builds, you have two options:
 2. On machines with enough resources, you can check locally with:
 
     make -j$(nproc) stage1
-    dune b @vendored/install @fmdeps/all @fmdeps/runtest @bluerock/bhv/proof @bluerock/NOVA/all
+    dune b @vendored/install @fmdeps/all @bluerock/bhv/proof @bluerock/NOVA/all
+    dune b @fmdeps/runtest
+
+Run the build/install command to completion before starting the tests: standalone
+projects in Cram tests use the workspace's installed Rocq libraries and can
+otherwise encounter unavailable files or dangling `.vo` links.
 
 Run this through `direnv` (this repo ships an `.envrc`) so the toolchain on
 `PATH` matches the workspace.
