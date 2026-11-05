@@ -85,3 +85,14 @@ dune exec -- rocq-perf.perf-script /path/to/file.json > output.script
 This top-level `AGENTS.md` is workspace-wide guidance. Nested `AGENTS.md` files
 belong to the repository or package subtree that contains them and may add more
 specific rules for that subtree.
+
+## Handling build regressions
+
+As a general principle, if a worktree introduces changes in certain
+repository and that the change causes breakages in repos that depend
+on it, we expect there to be a regression test in the repo where the
+changes were made. In the exceptional situation where the tests need
+to exist downstream, they should be placed as close as possible to the
+code they test. In particular, sometimes, regressions caused by
+changes in `BRiCk` need to be tested in `auto` because of the
+interplay between the automation and BRiCk.
