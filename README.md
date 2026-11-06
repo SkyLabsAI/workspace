@@ -59,14 +59,38 @@ correct development environment locally (opam switch, ...).
 source dev/activate.sh  # Enable the development environment.
 ```
 
+### Loading The Workspace Environment
+
+Activate the opam environment using the steps above before loading the
+workspace environment.
+
+Install [direnv](https://direnv.net/docs/installation.html) and enable its
+[shell hook](https://direnv.net/docs/hook.html), then restart your shell. From
+the workspace root, authorize the workspace's `.envrc`:
+
+```sh
+direnv allow  # First time in this checkout, and after .envrc changes.
+```
+
+With the hook active, direnv automatically loads the workspace environment when
+you enter the checkout. This makes the workspace's tool wrappers, including
+`rocq-ed`, and locally built tools and libraries available.
+
+In a shell or script without the hook, use `direnv exec . COMMAND` from the
+workspace root to run a command with the same environment.
+
 ### Building
 
-To start building, you can run the following.
+With the [workspace environment](#loading-the-workspace-environment) loaded,
+run the following from the workspace root.
 ```sh
-make ide-prepare        # Prepare for a minimal build.
+make ide-prepare        # Prepare Rocq tools for building and editing.
 make -j$(nproc) stage1  # Build ASTs of client projects.
 dune build              # Build for installation.
 ```
+
+Run `make ide-prepare` before using the editor. This prepares the Rocq wrappers
+and runtime helpers used by the workspace's interactive editing tools.
 
 If Dune fails with an error like the following, the workspace-local Rocq
 wrappers have not been prepared yet.
