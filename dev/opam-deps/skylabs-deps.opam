@@ -147,6 +147,7 @@ depends: [
   "ppx_here" {= "v0.17.0"}
   "ppx_ignore_instrumentation" {= "v0.17.0"}
   "ppx_inline_test" {= "v0.17.1"}
+  "ppx_import" {= "1.13.0"}
   "ppx_jane" {= "v0.17.0"}
   "ppx_js_style" {= "v0.17.1"}
   "ppx_let" {= "v0.17.1"}
