@@ -81,8 +81,6 @@ describe-${REPO_NAME}:
 ifeq ($(wildcard ${REPO_DIR}),${REPO_DIR})
 	@git -C ${REPO_DIR} log --pretty=tformat:'${REPO_DIR}: %H' -n 1
 	@git -C ${REPO_DIR} diff HEAD --quiet || echo "${REPO_DIR} is dirty"
-else
-	@echo "No repository in ${REPO_DIR}, cannot describe."
 endif
 
 FETCH_TARGETS += fetch-${REPO_NAME}
