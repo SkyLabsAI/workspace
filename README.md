@@ -92,14 +92,9 @@ dune build              # Build for installation.
 Run `make ide-prepare` before using the editor. This prepares the Rocq wrappers
 and runtime helpers used by the workspace's interactive editing tools.
 
-If Dune fails with an error like the following, the workspace-local Rocq
-wrappers have not been prepared yet.
-```text
-[Panic] Error: recursive invocation of "rocq-perf" as "rocq"
-```
-
-Run `make ide-prepare` from the workspace root and retry the build. This
-prepares the Rocq wrapper layout expected by the composed workspace build.
+The profiling wrapper is configured explicitly by Dune and invokes the Rocq
+binary built in this workspace. It does not require an installed Rocq binary in
+the OPAM switch or a pre-existing `_build/install/default/bin/rocq` link.
 
 Sub-Repository Control
 ----------------------
