@@ -38,7 +38,7 @@ depends: [
   "camlp-streams" {= "5.0.1"}
   "camlzip" {= "1.14"}
   "capitalization" {= "v0.17.0"}
-  "chrome-trace" {= "3.25.0"}
+  "chrome-trace" {= "3.26.0+sl"}
   "cmdliner" {= "2.1.1"}
   "compiler-cloning" {= "enabled"}
   "conf-gmp" {= "5"}
@@ -56,11 +56,11 @@ depends: [
   "ctypes" {= "0.24.0"}
   "ctypes-foreign" {= "0.24.0"}
   "dot-merlin-reader" {= "5.9.1-505"}
-  "dune" {= "3.25.0"}
-  "dune-build-info" {= "3.25.0"}
-  "dune-configurator" {= "3.25.0"}
-  "dune-rpc" {= "3.25.0"}
-  "dyn" {= "3.25.0"}
+  "dune" {= "3.26.0+sl"}
+  "dune-build-info" {= "3.26.0+sl"}
+  "dune-configurator" {= "3.26.0+sl"}
+  "dune-rpc" {= "3.26.0+sl"}
+  "dyn" {= "3.26.0+sl"}
   "easy-format" {= "1.3.4"}
   "either" {= "1.0.0"}
   "expect_test_helpers_core" {= "v0.17.0"}
@@ -70,7 +70,7 @@ depends: [
   "fix" {= "20250919"}
   "fmt" {= "0.11.0"}
   "fpath" {= "0.7.3"}
-  "fs-io" {= "3.25.0"}
+  "fs-io" {= "3.26.0+sl"}
   "gel" {= "v0.17.0"}
   "gen" {= "1.1"}
   "ISO8601" {= "0.2.6"}
@@ -109,7 +109,7 @@ depends: [
   "ocaml-version" {= "4.1.6"}
   "ocaml_intrinsics_kernel" {= "v0.17.3"}
   "ocamlbuild" {= "0.16.1"}
-  "ocamlc-loc" {= "3.25.0"}
+  "ocamlc-loc" {= "3.26.0+sl"}
   "ocamlfind" {= "1.9.9~preview"}
   "ocamlformat" {= "0.29.0"}
   "ocamlformat-lib" {= "0.29.0"}
@@ -120,7 +120,7 @@ depends: [
   "octavius" {= "1.2.2"}
   "odoc" {= "3.2.2"}
   "odoc-parser" {= "3.2.2"}
-  "ordering" {= "3.25.0"}
+  "ordering" {= "3.26.0+sl"}
   "parsexp" {= "v0.17.0"}
   "patdiff" {= "v0.17.0"}
   "patience_diff" {= "v0.17.0"}
@@ -185,12 +185,12 @@ depends: [
   "splittable_random" {= "v0.17.0"}
   "stdio" {= "v0.17.0"}
   "stdlib-shims" {= "0.3.0"}
-  "stdune" {= "3.25.0"}
+  "stdune" {= "3.26.0+sl"}
   "stringext" {= "1.6.0"}
   "time_now" {= "v0.17.0"}
   "timezone" {= "v0.17.0"}
   "toml" {= "7.1.0"}
-  "top-closure" {= "3.25.0"}
+  "top-closure" {= "3.26.0+sl"}
   "topkg" {= "1.1.1"}
   "typerep" {= "v0.17.1"}
   "tyxml" {= "5.0.0"}
@@ -200,7 +200,7 @@ depends: [
   "uuseg" {= "18.0.0"}
   "uutf" {= "1.0.4"}
   "variantslib" {= "v0.17.0"}
-  "xdg" {= "3.25.0"}
+  "xdg" {= "3.26.0+sl"}
   "yaml" {= "3.2.0"}
   "yojson" {= "3.0.0"}
   "zarith" {= "1.14"}
