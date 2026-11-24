@@ -1,3 +1,17 @@
 (lang dune 3.21)
 (profile sl_timing)
 (cache enabled)
+
+; Make C objects independent of the checkout location. Dune always compiles
+; C stubs with -g, so gcc records the absolute build directory in
+; DW_AT_comp_dir. Without this remapping, binaries such as rocqworker differ
+; between checkouts, and nothing built with them can be shared through the
+; Dune cache. DUNE_SOURCEROOT is set by Dune itself; the flag makes the C
+; compilation specific to each checkout, but its output (and everything built
+; from it) is identical everywhere. This lives here rather than in the root
+; dune file because env stanzas are not inherited across project boundaries.
+(env
+ (_
+  (c_flags
+   (:standard
+    -ffile-prefix-map=%{env:DUNE_SOURCEROOT=}/_build/default=.))))
