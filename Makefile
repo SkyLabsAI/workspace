@@ -20,13 +20,16 @@ CPP2V = _build/install/default/bin/cpp2v
 .PHONY: ide-prepare
 ide-prepare:
 	$(Q)$(DUNE_WRAPPER) build --display=short \
+		@fmdeps/BRiCk/rocq-skylabs-cpp2v/install \
+		@fmdeps/skylabs-fm/pm/install \
 		@fmdeps/rocq-agent-toolkit/rocq-doc-manager/install \
 		@fmdeps/rocq-agent-toolkit/ocaml-rocq-simple-api/install \
-		@fmdeps/rocq-agent-toolkit/rocq-ed/install \
 		@fmdeps/rocq-agent-toolkit/rocq-fake-repl/install \
+		@fmdeps/rocq-agent-toolkit/rocq-ed/install \
 		@vendored/rocq/install \
 		@vendored/vsrocq/install \
 		@rocqproject ${CPP2V}
+	$(Q)dev/check-install.sh
 
 .PHONY: stage1
 stage1: ide-prepare ast-prepare-bluerock
