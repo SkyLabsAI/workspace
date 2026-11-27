@@ -8,4 +8,5 @@
   (deps (:yml (glob_files *.yml)) (:script build-list.py))
   (action
    (setenv UV_CACHE_DIR .uv-cache
-    (system "./%{script} -o %{target} %{yml} --relative-to='../../dyn' --root=../..")))))
+    (setenv UV_PYTHON_INSTALL_DIR .uv-python
+     (system "./%{script} -o %{target} %{yml} --relative-to='../../dyn' --root=../.."))))))
