@@ -27,3 +27,7 @@ echo "Switch directory: $(realpath ../_opam)"
 echo "Adding the archive repository to the switch."
 opam repo add --this-switch archive \
   git+https://github.com/ocaml/opam-repository-archive
+
+echo "Adding the SkyLabs AI repository to the switch."
+opam repo add --this-switch skylabs-ai \
+  git+https://github.com/SkyLabsAI/opam
