@@ -6,3 +6,4 @@ _opam/
 .lia.cache
 .nia.cache
 .nra.cache
+/compile_commands.json
